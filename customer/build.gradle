@@ -1,0 +1,93 @@
+import java.util.concurrent.TimeUnit
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+//        applicationId "com.community.customer"
+        applicationId "cn.wdcloud.acaeva"
+        minSdkVersion 18
+        targetSdkVersion 27
+        versionCode 100
+        versionName "1.0.0"
+
+        multiDexEnabled = true
+
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "b3WoywwEmlA8Nco8DxIDC7",
+                GETUI_APP_KEY   : "V9deXLBBNS7PksvtDfQ398",
+                GETUI_APP_SECRET: "NOj4vx3pRGAHhI5oKAzOg"
+        ]
+    }
+
+    signingConfigs {
+        debug {
+            File propFile = file('../signing.properties');
+            if (propFile.exists()) {
+                def Properties props = new Properties()
+                props.load(new FileInputStream(propFile))
+                if (props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+                    storeFile = file(props['STORE_FILE'])
+                    storePassword = props['STORE_PASSWORD']
+                    keyAlias = props['KEY_ALIAS']
+                    keyPassword = props['KEY_PASSWORD']
+                }
+            }
+        }
+
+        release {
+            File propFile = file('../signing.properties');
+            if (propFile.exists()) {
+                def Properties props = new Properties()
+                props.load(new FileInputStream(propFile))
+                if (props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+                    storeFile = file(props['STORE_FILE'])
+                    storePassword = props['STORE_PASSWORD']
+                    keyAlias = props['KEY_ALIAS']
+                    keyPassword = props['KEY_PASSWORD']
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+//    repositories {
+//        flatDir {
+//            dirs '../support/libs/aarLibs'
+//        }
+//    }
+
+    packagingOptions {
+        exclude 'META-INF/INDEX.LIST'
+    }
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor(3, TimeUnit.SECONDS)
+    resolutionStrategy.cacheDynamicVersionsFor(3, TimeUnit.SECONDS)
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+
+    api project(':support')
+
+    // dom4j
+    api 'org.dom4j:dom4j:2.1.1'
+}

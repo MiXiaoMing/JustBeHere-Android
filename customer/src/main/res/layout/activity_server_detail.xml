@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#f7f6f4"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70px"
+        android:background="@color/white">
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13px"
+            android:textSize="20px"
+            tools:text="详情" />
+
+        <LinearLayout
+            android:id="@+id/llyBack"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10px"
+            android:layout_marginBottom="5px"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="15px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_back" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="15px">
+
+            <ImageView
+                android:id="@+id/ivCover"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:background="@color/white"
+                tools:src="@drawable/icon_app" />
+
+            <LinearLayout
+                android:id="@+id/llyDeposit"
+                android:layout_width="match_parent"
+                android:layout_height="40px"
+                android:layout_marginTop="10px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15px"
+                android:paddingRight="15px">
+
+                <com.community.support.component.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rectangle_corner_e46538"
+                    android:padding="5px"
+                    android:text="优惠"
+                    android:textColor="#e46538"
+                    android:textSize="10px" />
+
+                <com.community.support.component.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
+                    android:text="余额支付最低享受"
+                    android:textColor="#272727"
+                    android:textSize="12px" />
+
+                <com.community.support.component.FontTextView
+                    android:id="@+id/tvMinDiscountPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2px"
+                    android:gravity="center_vertical"
+                    android:textColor="#e46538"
+                    android:textSize="12px"
+                    android:text="--元优惠" />
+
+                <com.community.support.component.FontTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15px"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="立即充值"
+                    android:textColor="@color/blue_bg"
+                    android:textSize="13px" />
+
+                <ImageView
+                    android:layout_width="8px"
+                    android:layout_height="12px"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_arrow_right" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llyPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="2px"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:paddingBottom="15px"
+                android:background="@color/white">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llyIntroduce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="10px"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:paddingBottom="15px">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llyScope"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="10px"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:paddingBottom="15px">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llyTools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="10px"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:paddingBottom="15px">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llyFlow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="10px"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:paddingBottom="15px">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40px"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15px"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.community.support.component.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:textColor="#fc5506"
+                    android:textSize="10px" />
+
+                <com.community.support.component.FontTextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    tools:text="1234"
+                    android:textColor="#fc5506"
+                    android:textSize="15px" />
+
+                <com.community.support.component.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="起"
+                    android:textColor="#939391"
+                    android:textSize="10px" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvOrder"
+            android:layout_width="100px"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/blue_bg"
+            android:gravity="center"
+            android:text="去下单"
+            android:textColor="@color/white"
+            android:textSize="15px" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="63px"
+        android:background="@color/white"
+        android:paddingLeft="15px"
+        android:paddingRight="15px">
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            android:textSize="14px"
+            android:textColor="#343434"
+            tools:text="姓名"/>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="13px"
+            android:textSize="12px"
+            android:textColor="#646464"
+            tools:text="地址"/>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvCellphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            android:layout_alignParentRight="true"
+            android:textColor="#313131"
+            android:textSize="13px"
+            tools:text="电话号码"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

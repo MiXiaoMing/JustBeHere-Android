@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f6f4"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70px"
+        android:background="@color/white">
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13px"
+            android:textSize="20px"
+            android:text="选择服务" />
+
+        <LinearLayout
+            android:id="@+id/llyBack"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10px"
+            android:layout_marginBottom="5px"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="15px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_back" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/llyRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="15px"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:id="@+id/rlyAddressNone"
+                    android:layout_width="match_parent"
+                    android:layout_height="66px">
+
+                    <ImageView
+                        android:layout_width="15px"
+                        android:layout_height="17px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15px"
+                        android:src="@drawable/icon_position" />
+
+                    <com.community.support.component.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="45px"
+                        android:text="请设置服务地址"
+                        android:textColor="#3a3a3a"
+                        android:textSize="14px" />
+
+                    <com.community.support.component.FontTextView
+                        android:layout_width="70px"
+                        android:layout_height="30px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15px"
+                        android:background="#02bcae"
+                        android:gravity="center"
+                        android:text="去设置"
+                        android:textColor="@color/white"
+                        android:textSize="14px" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:id="@+id/rlyAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="66px">
+
+                    <ImageView
+                        android:layout_width="15px"
+                        android:layout_height="17px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15px"
+                        android:src="@drawable/icon_position" />
+
+                    <com.community.support.component.FontTextView
+                        android:id="@+id/tvContact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15px"
+                        android:layout_marginLeft="45px"
+                        tools:text="米晓明"
+                        android:textColor="#3a3a3a"
+                        android:textSize="14px" />
+
+                    <com.community.support.component.FontTextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvContact"
+                        android:layout_marginTop="10px"
+                        android:layout_marginLeft="45px"
+                        tools:text="新乐市武家庄村"
+                        android:textColor="#6a6869"
+                        android:textSize="12px" />
+
+                    <com.community.support.component.FontTextView
+                        android:id="@+id/tvCellphone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="15px"
+                        android:layout_marginRight="45px"
+                        tools:text="13718863263"
+                        android:textColor="#3a3a3a"
+                        android:textSize="14px" />
+
+                    <ImageView
+                        android:layout_width="8px"
+                        android:layout_height="12px"
+                        android:scaleType="centerCrop"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15px"
+                        android:src="@drawable/icon_arrow_right" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:id="@+id/llyPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15px"
+                android:layout_marginTop="10px"
+                android:orientation="vertical">
+
+                <com.community.support.component.FontTextView
+                    android:id="@+id/tvTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="总金额：100.0元"
+                    android:textColor="#3a3a3a"
+                    android:textSize="12px" />
+
+                <com.community.support.component.FontTextView
+                    android:id="@+id/tvDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="会员可优惠：132.00元"
+                    android:textColor="#da5826"
+                    android:textSize="12px" />
+
+                <com.community.support.component.FontTextView
+                    android:id="@+id/tvReal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5px"
+                    tools:text="实付额：100.0元"
+                    android:textColor="#3a3a3a"
+                    android:textSize="13px" />
+
+                <LinearLayout
+                    android:id="@+id/llyDeposit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25px"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="7px">
+
+                    <com.community.support.component.FontTextView
+                        android:id="@+id/tvBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当前余额：0.00元"
+                        android:textColor="#3a3a3a"
+                        android:textSize="12px" />
+
+                    <com.community.support.component.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15px"
+                        android:layout_toRightOf="@+id/llyPrice"
+                        android:gravity="center"
+                        android:text="立即充值"
+                        android:textColor="#35ada4"
+                        android:textSize="12px" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.community.support.component.FontTextView
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
+        android:layout_height="42px"
+        android:background="@color/gray"
+        android:gravity="center"
+        android:text="选择服务时间"
+        android:textColor="@color/white"
+        android:textSize="16px" />
+
+</LinearLayout>

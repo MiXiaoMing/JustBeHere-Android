@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f6f4"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70px"
+        android:background="@color/white">
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13px"
+            android:textSize="20px"
+            android:text="选择服务时间" />
+
+        <LinearLayout
+            android:id="@+id/llyBack"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10px"
+            android:layout_marginBottom="5px"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="15px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_back" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="62px"
+        android:layout_marginTop="12px"
+        android:background="@color/white"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/llyDay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/llyTimes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginTop="5px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px">
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="35px"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginTop="10px"  >-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_rectangle_corner_white_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#cbcbcb"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="8px"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_rectangle_corner_white_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#cbcbcb"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="8px"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_rectangle_corner_white_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#cbcbcb"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="8px"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_rectangle_corner_white_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#cbcbcb"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="35px"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginTop="10px">-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_rectangle_corner_white_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#02bcae"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="8px"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_stroke_4e_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#02bcae"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="8px"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_stroke_4e_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#02bcae"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="8px"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_stroke_4e_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#02bcae"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="35px"-->
+            <!--android:layout_marginTop="10px"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_rectangle_corner_white_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#cbcbcb"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="8px"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_rectangle_corner_white_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#cbcbcb"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="8px"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_rectangle_corner_white_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#cbcbcb"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="8px"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<com.community.support.component.FontTextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/shape_rectangle_corner_white_2"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#cbcbcb"-->
+                <!--android:textSize="14px"-->
+                <!--android:text="07:00"/>-->
+
+        <!--</LinearLayout>-->
+
+    </LinearLayout>
+
+    <com.community.support.component.FontTextView
+        android:id="@+id/tvSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="42px"
+        android:background="#02bdac"
+        android:gravity="center"
+        android:text="确认服务时间"
+        android:textColor="@color/white"
+        android:textSize="16px" />
+
+</LinearLayout>

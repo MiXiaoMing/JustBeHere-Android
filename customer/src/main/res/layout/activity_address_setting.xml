@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#f7f6f4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70px"
+            android:background="@color/white">
+
+            <com.community.support.component.FontTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="13px"
+                android:textSize="20px"
+                android:text="添加服务地址" />
+
+            <LinearLayout
+                android:id="@+id/llyBack"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5px"
+                android:layout_marginLeft="10px"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="15px"
+                    android:layout_height="20px"
+                    android:src="@drawable/icon_back"/>
+
+            </LinearLayout>
+
+            <com.community.support.component.FontTextView
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:id="@+id/tvDelete"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5px"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15px"
+                android:textColor="@color/blue_text_light"
+                android:textSize="13px"
+                android:text="删除"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:layout_marginTop="12px"
+            android:background="@color/white">
+
+            <com.community.support.component.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15px"
+                android:textColor="#676767"
+                android:textSize="13px"
+                android:text="联系人"/>
+
+            <EditText
+                android:id="@+id/etContact"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="80px"
+                android:paddingLeft="5px"
+                android:background="@null"
+                android:hint="点击输入姓名"
+                android:textSize="13px"
+                android:textColor="#323232"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:layout_marginTop="1px"
+            android:background="@color/white">
+
+            <com.community.support.component.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15px"
+                android:textColor="#676767"
+                android:textSize="13px"
+                android:text="手机号码"/>
+
+            <EditText
+                android:id="@+id/etCellphone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="80px"
+                android:inputType="phone"
+                android:paddingLeft="5px"
+                android:background="@null"
+                android:hint="点击输入手机号"
+                android:textSize="13px"
+                android:textColor="#323232"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:layout_marginTop="2px"
+            android:background="@color/white">
+
+            <com.community.support.component.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15px"
+                android:textColor="#676767"
+                android:textSize="13px"
+                android:text="服务地址"/>
+
+            <EditText
+                android:id="@+id/etRegion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="100px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="80px"
+                android:paddingLeft="5px"
+                android:background="@null"
+                android:hint="点击输入服务地址"
+                android:textSize="13px"
+                android:textColor="#323232"/>
+
+            <LinearLayout
+                android:id="@+id/llyCurrentPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:layout_marginRight="15px">
+
+                <ImageView
+                    android:layout_width="15px"
+                    android:layout_height="17px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15px"
+                    android:src="@drawable/icon_position" />
+
+                <com.community.support.component.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue_text_light"
+                    android:layout_marginLeft="5px"
+                    android:textSize="11px"
+                    android:text="当前位置"/>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:layout_marginTop="1px"
+            android:background="@color/white">
+
+            <com.community.support.component.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15px"
+                android:textColor="#676767"
+                android:textSize="13px"
+                android:text="地址详情"/>
+
+            <EditText
+                android:id="@+id/etDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="80px"
+                android:paddingLeft="5px"
+                android:background="@null"
+                android:hint="补充地址信息，如3号楼1单元601"
+                android:textSize="13px"
+                android:textColor="#323232"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.community.support.component.FontTextView
+        android:id="@+id/tvSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="42px"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:background="#00bfaf"
+        android:textSize="16px"
+        android:textColor="@color/white"
+        android:text="保存地址"/>
+
+</RelativeLayout>

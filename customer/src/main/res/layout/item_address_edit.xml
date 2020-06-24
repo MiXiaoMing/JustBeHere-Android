@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/ivSelect"
+        android:layout_width="20px"
+        android:layout_height="20px"
+        android:layout_marginLeft="15px"
+        android:src="@drawable/icon_unselected"/>
+
+    <RelativeLayout
+        android:id="@+id/rlyAddress"
+        android:layout_width="match_parent"
+        android:layout_height="63px"
+        android:background="@color/white"
+        android:layout_weight="1"
+        android:paddingLeft="15px"
+        android:paddingRight="15px">
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            android:textSize="14px"
+            android:textColor="#343434"
+            tools:text="姓名"/>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="13px"
+            android:textSize="12px"
+            android:textColor="#646464"
+            tools:text="地址"/>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvCellphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            android:layout_alignParentRight="true"
+            android:textColor="#313131"
+            android:textSize="13px"
+            tools:text="电话号码"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlyEdit"
+        android:layout_width="45px"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="16px"
+            android:layout_height="20px"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15px"
+            android:src="@drawable/icon_edit"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

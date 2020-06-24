@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationListener>
+
+    <!--测试应用启动-->
+    <Listener-Class>com.community.customer.QXApplication</Listener-Class>
+
+</ApplicationListener>

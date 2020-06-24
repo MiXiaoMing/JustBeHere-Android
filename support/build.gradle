@@ -1,0 +1,65 @@
+import java.util.concurrent.TimeUnit
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs/aarLibs'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor(3, TimeUnit.SECONDS)
+    resolutionStrategy.cacheDynamicVersionsFor(3, TimeUnit.SECONDS)
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "com.android.support:recyclerview-v7:27.1.1"
+
+    // AppFrame
+    api('com.appframe:framework:latest.integration') { changing = true }
+    api('com.appframe:library:latest.integration') { changing = true }
+    api('com.appframe:utils:latest.integration') { changing = true }
+
+    api 'com.zhy:autolayout:1.4.5'
+    api 'com.youth.banner:banner:1.4.10'  //最新版本
+    //阿里云 热修复
+    api 'com.aliyun.ams:alicloud-android-hotfix:3.2.8'
+    //友盟 统计
+    api  'com.umeng.umsdk:analytics:8.0.0'
+    api  'com.umeng.umsdk:common:2.0.0'
+//    api  'com.umeng.umsdk:utdid:1.1.5.3'
+    //个推
+    api 'com.getui:sdk:2.13.0.0'
+    //微信 支付 分享
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    // evnetbus
+    api 'org.greenrobot:eventbus:3.1.1'
+}

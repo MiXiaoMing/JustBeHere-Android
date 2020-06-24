@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#f8f8fa"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65px"
+        android:background="#5da3f4">
+
+        <com.community.support.component.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13px"
+            android:textColor="@color/white"
+            android:textSize="20px"
+            android:text="商城" />
+
+        <RelativeLayout
+            android:id="@+id/rlyCart"
+            android:layout_width="100px"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:layout_width="25px"
+                android:layout_height="25px"
+                android:src="@drawable/icon_shopping_cart_white"/>
+
+            <com.community.support.component.FontTextView
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:id="@+id/tvCartCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15px"
+                android:layout_marginTop="10px"
+                android:paddingTop="2px"
+                android:paddingBottom="2px"
+                android:paddingLeft="4px"
+                android:paddingRight="4px"
+                android:background="#ff490b"
+                android:textSize="11px"
+                android:textColor="@color/white"
+                tools:text="100"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="43px"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        android:background="@color/white"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

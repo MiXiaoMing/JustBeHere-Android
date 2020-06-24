@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#f8f8f8">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70px"
+        android:background="@color/white">
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13px"
+            android:textSize="20px"
+            android:text="购物车" />
+
+        <LinearLayout
+            android:id="@+id/llyBack"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5px"
+            android:layout_marginLeft="10px"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="15px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_back"/>
+
+        </LinearLayout>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvEdit"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15px"
+            android:textColor="@color/blue_text_light"
+            android:textSize="13px"
+            android:text="编辑"/>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvCartList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:dividerHeight="1dp"
+        android:divider="@null"
+        android:layout_marginTop="3px"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42px"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/llySelect"
+            android:layout_width="100px"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ivSelect"
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_unselected"/>
+
+            <com.community.support.component.FontTextView
+                android:id="@+id/tvSelectDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7px"
+                android:textColor="@color/gray_text_10"
+                android:textSize="14px"
+                android:text="全选"/>
+
+        </LinearLayout>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvPrice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:paddingRight="10px"
+            android:layout_weight="1"
+            android:textSize="15px"
+            android:textColor="#ff510b"
+            tools:text="¥ 200.00"/>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="125px"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:background="@color/gray"
+            android:textSize="15px"
+            android:textColor="@color/white"
+            tools:text="去结算（1）"/>
+
+    </LinearLayout>
+
+</LinearLayout>

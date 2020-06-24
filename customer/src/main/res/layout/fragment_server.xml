@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/llyRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f8f8fa"
+            android:orientation="vertical"
+            android:paddingBottom="15px">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="120px" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llyFiveClass"
+                android:layout_width="match_parent"
+                android:layout_height="85px"
+                android:orientation="horizontal"
+                android:paddingTop="12px"
+                android:gravity="center"
+                android:background="@color/white">
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#f2f2f2"/>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llyTenServer_One"
+                android:layout_width="match_parent"
+                android:layout_height="75px"
+                android:orientation="horizontal"
+                android:paddingTop="20px"
+                android:paddingBottom="10px"
+                android:gravity="center"
+                android:background="@color/white">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llyTenServer_Two"
+                android:layout_width="match_parent"
+                android:layout_height="75px"
+                android:orientation="horizontal"
+                android:paddingTop="20px"
+                android:paddingBottom="10px"
+                android:gravity="center"
+                android:background="@color/white">
+
+            </LinearLayout>
+
+            <ImageView
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:layout_marginTop="8px"
+                android:scaleType="centerCrop"
+                android:src="@drawable/join_us"/>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llyRecommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8px"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.community.support.component.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15px"
+                        android:textSize="14px"
+                        android:textColor="#f8a710"
+                        android:text="热门推荐"/>
+
+                    <com.community.support.component.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25px"
+                        android:textSize="10px"
+                        android:text="明星服务，邀您体验"
+                        android:textColor="#b5b2ad"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#f2f2f2"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

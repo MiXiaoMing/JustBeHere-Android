@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/llyBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="5px"
+        android:paddingLeft="5px"
+        android:paddingRight="5px"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/llyServer"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="3px"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ivServer"
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_server_click"/>
+
+            <com.community.support.component.FontTextView
+                android:id="@+id/tvServer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务"
+                android:textSize="14px"
+                android:textColor="@color/blue_text"/>
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyMall"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="3px"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ivMall"
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_mall"/>
+
+            <com.community.support.component.FontTextView
+                android:id="@+id/tvMall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商城"
+                android:textSize="14px"
+                android:textColor="@color/gray_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyOrder"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="3px"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ivOrder"
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_order"/>
+
+            <com.community.support.component.FontTextView
+                android:id="@+id/tvOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单"
+                android:textSize="14px"
+                android:textColor="@color/gray_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyMine"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="3px"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ivMine"
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_mine"/>
+
+            <com.community.support.component.FontTextView
+                android:id="@+id/tvMine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的"
+                android:textSize="14px"
+                android:textColor="@color/gray_text"/>
+
+        </LinearLayout>
+        
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/flyContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/llyBottom"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray"
+        android:layout_above="@+id/llyBottom"
+        android:shadowColor="#FF4141"
+        android:shadowRadius="10"
+        android:shadowDx="3"
+        android:shadowDy="0"/>
+
+</RelativeLayout>

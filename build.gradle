@@ -1,0 +1,35 @@
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0'
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url "https://maven.google.com" }
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url "http://maven.aliyun.com/nexus/content/repositories/releases"}
+        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/" }
+
+        maven {
+            url 'http://192.168.1.33:8082/repository/android/'
+            credentials  {
+                username  'admin'
+                password 'admin'
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

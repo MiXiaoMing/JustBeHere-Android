@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="3px"
+            android:layout_height="15px"
+            android:background="#02bdac"/>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvServerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="13px"
+            android:textColor="#343434"
+            android:textSize="13px"
+            tools:text="日常保洁" />
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13px"
+            tools:text="待支付"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="30px"
+        android:background="#f8f8fa"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:layout_marginLeft="25px"
+        android:orientation="horizontal">
+
+        <com.community.support.component.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_text"
+            android:textSize="13px"
+            android:text="服务时间：" />
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvServerTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#343434"
+            android:textSize="13px"
+            tools:text="2019-02-03 02:01:11" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:layout_marginLeft="25px"
+        android:layout_marginBottom="10px"
+        android:orientation="horizontal">
+
+        <com.community.support.component.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_text"
+            android:textSize="13px"
+            android:text="服务地址：" />
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#343434"
+            android:textSize="13px"
+            tools:text="伏羲大街" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llyPayPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25px"
+        android:layout_marginBottom="10px"
+        android:orientation="horizontal">
+
+        <com.community.support.component.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_text"
+            android:textSize="13px"
+            android:text="应付金额：" />
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvPayPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#343434"
+            android:textSize="13px"
+            tools:text="100.00元" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="3px"
+            android:layout_height="15px"
+            android:background="#02bdac"/>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvCreateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="13px"
+            android:textColor="#343434"
+            android:textSize="14px"
+            tools:text="2018-02-92" />
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13px"
+            tools:text="待支付"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#f8f8fa"/>
+
+    <LinearLayout
+        android:id="@+id/llyIcons"
+        android:layout_width="match_parent"
+        android:layout_height="70px"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px">
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="30px"
+        android:background="#f8f8fa"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30px"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:orientation="horizontal">
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textSize="12px"
+            android:textColor="@color/gray_text"
+            tools:text="共9件商品，实付额："/>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2px"
+            android:textSize="13px"
+            android:textColor="#343434"
+            android:text="--"/>
+
+        <com.community.support.component.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2px"
+            android:textSize="12px"
+            android:textColor="@color/gray_text"
+            android:text="元"/>
+
+    </LinearLayout>
+
+</LinearLayout>

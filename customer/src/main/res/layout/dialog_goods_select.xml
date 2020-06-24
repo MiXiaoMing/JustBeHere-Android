@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15px"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px">
+
+            <com.community.support.component.RoundCornerImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="65px"
+                android:layout_height="65px"
+                app:radius="5px"
+                tools:src="@drawable/icon_app"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="15px"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <com.community.support.component.FontTextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14px"
+                    android:textColor="#ff510b"
+                    tools:text="¥ 40.00"/>
+
+                <com.community.support.component.FontTextView
+                    android:id="@+id/tvSelectType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15px"
+                    android:textColor="#313131"
+                    android:textSize="13px"
+                    tools:text="请选择：数量"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlyClose"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10px"
+                android:layout_marginBottom="5px"
+                android:gravity="center">
+
+                <View
+                    android:layout_width="18px"
+                    android:layout_height="2px"
+                    android:background="#03bdaf"
+                    android:rotation="45" />
+
+                <View
+                    android:layout_width="18px"
+                    android:layout_height="2px"
+                    android:background="#03bdaf"
+                    android:rotation="135" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/llyType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            android:orientation="vertical">
+
+            <com.community.support.component.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15px"
+                android:textSize="14px"
+                android:textColor="#3a3a3a"
+                android:text="规格"/>
+
+            <com.community.support.component.AutoFlowLayout
+                android:id="@+id/aflyTypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15px"
+                android:layout_marginRight="15px"
+                android:layout_marginTop="12px"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="15px"
+                android:layout_marginRight="15px"
+                android:background="#f8f8fa"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55px"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <com.community.support.component.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15px"
+                android:textSize="14px"
+                android:textColor="#3a3a3a"
+                android:text="数量"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="33px"
+                android:layout_marginRight="15px"
+                android:background="@drawable/shape_rectangle_corner_white">
+
+                <RelativeLayout
+                    android:id="@+id/rlySub"
+                    android:layout_width="33px"
+                    android:layout_height="33px"
+                    android:background="@drawable/shape_rectangle_corner_white">
+
+                    <View
+                        android:layout_width="12px"
+                        android:layout_height="2px"
+                        android:layout_centerInParent="true"
+                        android:background="@color/gray" />
+
+                </RelativeLayout>
+
+                <com.community.support.component.FontTextView
+                    android:id="@+id/tvNumber"
+                    android:layout_width="50px"
+                    android:layout_height="33px"
+                    android:gravity="center"
+                    android:textColor="#3d3b3c"
+                    android:textSize="14px"
+                    android:text="0"/>
+
+                <RelativeLayout
+                    android:id="@+id/rlyAdd"
+                    android:layout_width="33px"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_rectangle_corner_white">
+
+                    <View
+                        android:layout_width="12px"
+                        android:layout_height="2px"
+                        android:background="#02bcae"
+                        android:layout_centerInParent="true"/>
+
+                    <View
+                        android:layout_width="2px"
+                        android:layout_height="12px"
+                        android:background="#02bcae"
+                        android:layout_centerInParent="true"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginBottom="30px"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:background="#f8f8f8"/>
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="42px"
+            android:background="#02bdac"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="16px" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

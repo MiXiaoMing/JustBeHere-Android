@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70px"
+        android:background="@color/white">
+
+        <com.community.support.component.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13px"
+            android:textSize="20px"
+            android:text="会员充值" />
+
+        <LinearLayout
+            android:id="@+id/llyBack"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10px"
+            android:layout_marginBottom="5px"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="15px"
+                android:layout_height="20px"
+                android:src="@drawable/icon_back" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45px"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_marginTop="10px">
+
+        <ImageView
+            android:layout_width="16px"
+            android:layout_height="16px"
+            android:layout_marginLeft="15px"
+            android:src="@drawable/icon_avatar" />
+
+        <com.community.support.component.FontTextView
+            android:text="充值账户"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13px"
+            android:textColor="#3a3a3a"
+            android:textSize="14px" />
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvCellphone"
+            tools:text="13718863263"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginRight="15px"
+            android:textColor="#929292"
+            android:textSize="11px" />
+
+    </LinearLayout>
+    
+    <View
+        android:layout_width="50px"
+        android:layout_height="1px"
+        android:background="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45px"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="16px"
+            android:layout_height="16px"
+            android:layout_marginLeft="15px"
+            android:src="@drawable/icon_money" />
+
+        <com.community.support.component.FontTextView
+            android:text="充值金额"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13px"
+            android:textColor="#3a3a3a"
+            android:textSize="14px" />
+
+        <com.community.support.component.FontTextView
+            android:id="@+id/tvMoney"
+            android:text="200元"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginRight="15px"
+            android:textColor="#da5826"
+            android:textSize="11px" />
+
+    </LinearLayout>
+
+    <com.community.support.component.FontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="15px"
+        android:textColor="@color/gray_text_10"
+        android:textSize="11px"
+        android:text="支付方式"/>
+
+    <LinearLayout
+        android:id="@+id/llyWX"
+        android:layout_width="match_parent"
+        android:layout_height="55px"
+        android:layout_marginTop="5px"
+        android:background="@color/white"
+        android:paddingLeft="15px"
+        android:paddingRight="15px"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="19px"
+            android:layout_height="17px"
+            android:src="@drawable/icon_wx"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="12px"
+            android:orientation="vertical">
+
+            <com.community.support.component.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信支付"
+                android:textColor="#3a3a3a"
+                android:textSize="14px" />
+
+            <com.community.support.component.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8px"
+                android:text="亿万用户的选择，更快更安全"
+                android:textColor="#3a3a3a"
+                android:textSize="12px" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivWXSelect"
+            android:layout_width="22px"
+            android:layout_height="22px"
+            android:src="@drawable/icon_selected"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <com.community.support.component.FontTextView
+        android:id="@+id/tvDeposit"
+        android:layout_width="match_parent"
+        android:layout_height="42px"
+        android:background="@color/blue_bg"
+        android:gravity="center"
+        android:text="立即支付"
+        android:textColor="@color/white"
+        android:textSize="16px" />
+
+</LinearLayout>
