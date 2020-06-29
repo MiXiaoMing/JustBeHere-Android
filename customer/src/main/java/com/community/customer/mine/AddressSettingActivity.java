@@ -14,6 +14,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.community.customer.api.CustomObserver;
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.user.AddressEntity;
 import com.community.customer.api.user.UserDataManager;
@@ -175,36 +176,16 @@ public class AddressSettingActivity extends AutoBaseTitleActivity {
         dataManager.address(address, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<EmptyEntity>() {
+                .subscribe(new CustomObserver<EmptyEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("服务地址：" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onError(String message) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(EmptyEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("服务地址，msgCode：" + result.errCode + "/n" + result.message);
-                        } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("服务地址, result为空");
-                                return;
-                            }
-
-                            finish();
-                        }
+                    public void onSuccess(EmptyEntity result) {
+                        finish();
                     }
                 });
     }

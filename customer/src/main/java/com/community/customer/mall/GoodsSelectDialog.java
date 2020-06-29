@@ -18,11 +18,13 @@ import android.widget.TextView;
 import com.appframe.library.component.image.ImageLoader;
 import com.appframe.utils.logger.Logger;
 import com.community.customer.LoginActivity;
-import com.community.customer.api.mall.Goods;
+import com.community.customer.api.CustomObserver;
+import com.community.customer.api.mall.GoodsEntity;
 import com.community.customer.api.mall.GoodsPrice;
 import com.community.customer.api.user.CountEntity;
 import com.community.customer.api.user.GoodsOrderConfirm;
 import com.community.customer.api.user.UserDataManager;
+import com.community.customer.api.user.input.CartBody;
 import com.community.customer.order.GoodsOrderConfirmActivity;
 import com.community.support.component.AutoFlowLayout;
 import com.community.support.component.BaseDialog;
@@ -44,7 +46,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class GoodsSelectDialog extends BaseDialog {
-    private Goods goods;
+    private GoodsEntity goods;
     private String type; //cart：添加到购物车  order：直接购买
     private String selectTypeID;
     private TextView tvNumber;
@@ -59,7 +61,7 @@ public class GoodsSelectDialog extends BaseDialog {
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setCancelable(false);
 
-        goods = (Goods) getArguments().getSerializable("goods");
+        goods = (GoodsEntity) getArguments().getSerializable("goods");
         type = getArguments().getString("type", "order");
         if (goods == null || goods.prices.size() <= 0) {
             if (goods != null)
@@ -219,41 +221,26 @@ public class GoodsSelectDialog extends BaseDialog {
 
     private void addCart(String goodsid, String typeid, String typeName, int number) {
         Logger.getLogger().d("加入购物车");
-        UserDataManager dataManager = new UserDataManager();
-        dataManager.addCart(goodsid, typeid, typeName, number)
+
+        CartBody body = new CartBody();
+        body.goodsID = goodsid;
+        body.typeID = typeid;
+        body.typeName = typeName;
+        body.number = number;
+
+        new UserDataManager().addCart(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CountEntity>() {
+                .subscribe(new CustomObserver<CountEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("加入购物车：" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onError(String message) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(CountEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("加入购物车，msgCode：" + result.errCode + "/n" + result.message);
-                        } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("加入购物车, result为空");
-                                return;
-                            }
-
-                            int count = result.data.getCountInt();
-                            dismiss();
-                        }
+                    public void onSuccess(CountEntity result) {
+                        dismiss();
                     }
                 });
     }

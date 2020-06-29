@@ -13,8 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.appframe.library.component.image.ImageLoader;
-import com.community.customer.api.mall.Goods;
+import com.community.customer.api.mall.GoodsListEntity;
 import com.community.customer.common.Constants;
+import com.community.customer.common.ServerConfig;
 import com.community.customer.mall.GoodsDetailActivity;
 import com.community.support.component.FontTextView;
 import com.community.support.component.LoadMoreAdapter;
@@ -26,10 +27,10 @@ import java.util.List;
 import cn.wdcloud.acaeva.R;
 
 
-public class GoodsAdapter extends LoadMoreAdapter<Goods> {
+public class GoodsAdapter extends LoadMoreAdapter<GoodsListEntity> {
     private Context context;
 
-    public GoodsAdapter(Context context, List<Goods> dataList) {
+    public GoodsAdapter(Context context, List<GoodsListEntity> dataList) {
         super(dataList);
         this.context = context;
     }
@@ -44,8 +45,8 @@ public class GoodsAdapter extends LoadMoreAdapter<Goods> {
     public void handleBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) viewHolder;
-            Goods entity = dataList.get(position);
-            ImageLoader.normal(context, entity.icon, R.drawable.default_image_white, holder.ivIcon);
+            GoodsListEntity entity = dataList.get(position);
+            ImageLoader.normal(context, ServerConfig.file_host + entity.icon, R.drawable.default_image_white, holder.ivIcon);
             holder.tvTitle.setText(entity.title);
             holder.tvDesc.setText(entity.desc);
             if (entity.prices != null && entity.prices.size() > 0) {

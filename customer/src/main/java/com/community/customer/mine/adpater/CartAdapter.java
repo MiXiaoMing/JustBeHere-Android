@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.appframe.library.component.image.ImageLoader;
 import com.appframe.utils.logger.Logger;
+import com.community.customer.api.CustomObserver;
 import com.community.customer.api.EmptyEntity;
-import com.community.customer.api.user.Cart;
+import com.community.customer.api.user.CartListEntity;
 import com.community.customer.api.user.CountEntity;
 import com.community.customer.api.user.UserDataManager;
 import com.community.customer.mine.ShoppingCartActivity;
@@ -30,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CartAdapter extends BaseAdapter {
     private ShoppingCartActivity activity;
-    private ArrayList<Cart> entities = new ArrayList<>();
+    private ArrayList<CartListEntity> entities = new ArrayList<>();
 
     public CartAdapter(ShoppingCartActivity activity) {
         this.activity = activity;
@@ -71,9 +72,9 @@ public class CartAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final Cart cart = entities.get(position);
+        final CartListEntity cart = entities.get(position);
 
-        ImageLoader.normal(activity, cart.icon, R.drawable.default_image_white, viewHolder.ivIcon);
+        ImageLoader.circle(activity, cart.icon, R.drawable.default_image_white, viewHolder.ivIcon);
         viewHolder.tvTitle.setText(cart.title);
         if (TextUtils.isEmpty(cart.typeName)) {
             viewHolder.tvTypeName.setVisibility(View.GONE);
@@ -134,7 +135,7 @@ public class CartAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void addAll(ArrayList<Cart> entities) {
+    public void addAll(ArrayList<CartListEntity> entities) {
         this.entities.clear();
         this.entities.addAll(entities);
         notifyDataSetChanged();
@@ -148,7 +149,7 @@ public class CartAdapter extends BaseAdapter {
         notifyCount();
     }
 
-    public ArrayList<Cart> getAll() {
+    public ArrayList<CartListEntity> getAll() {
         return entities;
     }
 
@@ -162,9 +163,9 @@ public class CartAdapter extends BaseAdapter {
 
     public void deleteSelect() {
         String ids = "";
-        Iterator<Cart> cartIterator = entities.iterator();
+        Iterator<CartListEntity> cartIterator = entities.iterator();
         while (cartIterator.hasNext()) {
-            Cart cart = cartIterator.next();
+            CartListEntity cart = cartIterator.next();
             if (cart.isSelect) {
                 if (!TextUtils.isEmpty(ids)) {
                     ids += ",";
@@ -183,7 +184,7 @@ public class CartAdapter extends BaseAdapter {
         boolean isAllSelect = true;
         int selectCount = 0;
         float price = 0;
-        for (Cart cart : entities) {
+        for (CartListEntity cart : entities) {
             if (!cart.isSelect) {
                 isAllSelect = false;
             } else {
@@ -206,36 +207,21 @@ public class CartAdapter extends BaseAdapter {
         dataManager.deleteCart(ids)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CountEntity>() {
+                .subscribe(new CustomObserver<CountEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("购物车删除：" + e.getMessage());
+                    public void onError(String message) {
+
                     }
 
                     @Override
-                    public void onComplete() {
-
+                    public void onSuccess(CountEntity result) {
+                        int count = result.data.count;
                     }
 
                     @Override
                     public void onSubscribe(Disposable d) {
 
-                    }
-
-                    @Override
-                    public void onNext(CountEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("购物车删除，msgCode：" + result.errCode + "/n" + result.message);
-                        } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("购物车删除, result为空");
-                                return;
-                            }
-
-                            int count = result.data.getCountInt();
-                        }
                     }
                 });
     }

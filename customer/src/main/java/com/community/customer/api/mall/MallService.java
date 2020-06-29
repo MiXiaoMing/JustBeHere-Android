@@ -1,7 +1,12 @@
 package com.community.customer.api.mall;
 
+import com.community.customer.api.mall.input.GoodsListBody;
+
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -11,13 +16,13 @@ public interface MallService {
 
     /**********  商城  **********/
 
-    @GET("mall/getGoodsClassify")
+    @POST("goods/getAllGoodsClassify")
     Observable<GoodsClassifyListEntity> getGoodsClassify();
 
-    @GET("mall/getGoodsList")
-    Observable<GoodsListEntity> getGoodsList(@Query("classify") String classify, @Query("page") int page, @Query("number") int number);
+    @POST("goods/getGoodsList")
+    Observable<GoodsListEntity> getGoodsList(@Body GoodsListBody body);
 
-    @GET("mall/getGoods")
-    Observable<GoodsEntity> getGoodsDetail(@Query("code") String code);
+    @POST("goods/getGoods")
+    Observable<GoodsEntity> getGoodsDetail(@Body RequestBody body);
 
 }

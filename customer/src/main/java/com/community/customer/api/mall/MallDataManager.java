@@ -1,8 +1,10 @@
 package com.community.customer.api.mall;
 
 import com.community.customer.api.MobileServerRetrofit;
+import com.community.customer.api.mall.input.GoodsListBody;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 
 /**
  * 商品信息
@@ -21,11 +23,11 @@ public class MallDataManager {
         return service.getGoodsClassify();
     }
 
-    public Observable<GoodsListEntity> getGoodsList(String classify, int page, int number) {
-        return service.getGoodsList(classify, page, number);
+    public Observable<GoodsListEntity> getGoodsList(GoodsListBody body) {
+        return service.getGoodsList(body);
     }
 
-    public Observable<GoodsEntity> getGoodsDetail(String code) {
-        return service.getGoodsDetail(code);
+    public Observable<GoodsEntity> getGoodsDetail(RequestBody body) {
+        return service.getGoodsDetail(body);
     }
 }

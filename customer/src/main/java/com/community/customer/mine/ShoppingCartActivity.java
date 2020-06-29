@@ -11,24 +11,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.appframe.utils.logger.Logger;
-import com.community.customer.api.mall.GoodsPrice;
-import com.community.customer.api.user.Cart;
+import com.community.customer.api.CustomObserver;
 import com.community.customer.api.user.CartListEntity;
-import com.community.customer.api.user.CountEntity;
 import com.community.customer.api.user.GoodsOrderConfirm;
 import com.community.customer.api.user.UserDataManager;
-import com.community.customer.mall.GoodsSelectDialog;
 import com.community.customer.mine.adpater.CartAdapter;
 import com.community.customer.order.GoodsOrderConfirmActivity;
 import com.community.support.AutoBaseTitleActivity;
-import com.community.support.utils.ReportUtil;
 
 import java.util.ArrayList;
 
 import cn.wdcloud.acaeva.R;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ShoppingCartActivity extends AutoBaseTitleActivity {
@@ -141,8 +135,8 @@ public class ShoppingCartActivity extends AutoBaseTitleActivity {
                     if (type.equals("buy")) {
                         GoodsOrderConfirm goodsConfirm = new GoodsOrderConfirm();
 
-                        ArrayList<Cart> carts = cartAdapter.getAll();
-                        for (Cart cart : carts) {
+                        ArrayList<CartListEntity> carts = cartAdapter.getAll();
+                        for (CartListEntity cart : carts) {
                             goodsConfirm.addItem(cart.goodsid, cart.title, cart.icon, cart.typeID, cart.typeName, cart.typePrice, cart.number);
                             goodsConfirm.price += cart.typePrice * cart.number;
                         }
@@ -165,36 +159,16 @@ public class ShoppingCartActivity extends AutoBaseTitleActivity {
         dataManager.getShoppingCartList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CartListEntity>() {
+                .subscribe(new CustomObserver<CartListEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("获取购物车列表：" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onError(String message) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(CartListEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("获取购物车列表，msgCode：" + result.errCode + "/n" + result.message);
-                        } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("获取购物车列表, result为空");
-                                return;
-                            }
-
-                            cartAdapter.addAll(result.data.getCartList());
-                        }
+                    public void onSuccess(CartListEntity result) {
+                        cartAdapter.addAll(result.data);
                     }
                 });
     }

@@ -12,6 +12,7 @@
 其中包含短信、统计、定位、推送、热修复等技术实现。
 
 部分页面截图：
+
 http://1.119.166.179/jbh/screenshot/1.png
 
 http://1.119.166.179/jbh/screenshot/2.png

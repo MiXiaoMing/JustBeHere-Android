@@ -40,6 +40,10 @@ public class ServerOrderListFragment extends BaseFragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_order_list, null);
 
+
+            // TODO: 2020/6/29 ListView 需要替换 RecycleView，类似彩民：TuijianMatchAdapter
+
+
             ListView lvOrders = view.findViewById(R.id.lvOrders);
             TextView tvMore = view.findViewById(R.id.tvMore);
 

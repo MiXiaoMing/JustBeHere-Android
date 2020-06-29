@@ -69,10 +69,6 @@ public class ServerCommonView {
         for (int j = 0; j < serverClassify.servers.size(); ++j) {
             final Server server = serverClassify.servers.get(j);
 
-            if (!server.level.equals("1")) {
-                continue;
-            }
-
             LinearLayout linearLayout3 = new LinearLayout(activity);
             linearLayout3.setOrientation(LinearLayout.VERTICAL);
             linearLayout3.setGravity(Gravity.CENTER_HORIZONTAL);

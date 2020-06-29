@@ -67,7 +67,6 @@ public class LoadMoreAdapter<K> extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         try {
             FootViewHolder footViewHolder = (FootViewHolder) holder;
-            Logger.getLogger().e("FootViewHolder");
             switch (loadState) {
                 case LOADING: // 正在加载
                     footViewHolder.pbLoading.setVisibility(View.VISIBLE);
@@ -91,7 +90,6 @@ public class LoadMoreAdapter<K> extends RecyclerView.Adapter<RecyclerView.ViewHo
                     break;
             }
         } catch (Exception e) {
-            Logger.getLogger().e("viewholder");
             handleBindViewHolder(holder, position);
         }
     }

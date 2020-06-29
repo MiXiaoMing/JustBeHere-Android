@@ -14,7 +14,7 @@
         android:layout_marginLeft="15px"
         android:src="@drawable/icon_unselected" />
 
-    <com.community.support.component.RoundCornerImageView
+    <ImageView
         android:id="@+id/ivIcon"
         android:layout_width="80px"
         android:layout_height="80px"

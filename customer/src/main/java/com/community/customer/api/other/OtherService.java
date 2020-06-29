@@ -14,7 +14,7 @@ public interface OtherService {
 
     /**********  用户反馈  **********/
 
-    @FormUrlEncoded
+
     @POST("other/feedback")
     Observable<EmptyEntity> feedback(@Field("cid") String cid, @Field("content") String content);
 }

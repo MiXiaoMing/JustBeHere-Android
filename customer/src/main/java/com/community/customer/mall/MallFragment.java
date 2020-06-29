@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import com.appframe.utils.logger.Logger;
-import com.community.customer.api.mall.GoodsClassify;
+import com.community.customer.api.CustomObserver;
 import com.community.customer.api.mall.GoodsClassifyListEntity;
 import com.community.customer.api.mall.MallDataManager;
 import com.community.customer.api.user.CountEntity;
@@ -28,12 +28,14 @@ import com.community.customer.api.user.UserDataManager;
 import com.community.customer.mine.ShoppingCartActivity;
 import com.community.support.BaseFragment;
 import com.community.support.utils.ReportUtil;
+import com.community.support.utils.UserInfoUtil;
 
 import java.util.ArrayList;
 
 public class MallFragment extends BaseFragment {
     private View view;
     private TextView tvCartCount;
+    private RelativeLayout rlyCart;
 
     @Nullable
     @Override
@@ -42,7 +44,7 @@ public class MallFragment extends BaseFragment {
             view = inflater.inflate(R.layout.fragment_mall, null);
 
             tvCartCount = view.findViewById(R.id.tvCartCount);
-            RelativeLayout rlyCart = view.findViewById(R.id.rlyCart);
+            rlyCart = view.findViewById(R.id.rlyCart);
 
             rlyCart.setOnClickListener(clickListener);
 
@@ -59,7 +61,13 @@ public class MallFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        shoppingCartCount();
+        if (UserInfoUtil.isLogin()) {
+            rlyCart.setVisibility(View.VISIBLE);
+
+            shoppingCartCount();
+        } else {
+            rlyCart.setVisibility(View.GONE);
+        }
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -108,12 +116,12 @@ public class MallFragment extends BaseFragment {
                                 return;
                             }
 
-                            ArrayList<GoodsClassify> goodsClassifies = result.data.getGoodsClassify();
+                            ArrayList<GoodsClassifyListEntity> goodsClassifies = result.data;
 
                             final ArrayList<Fragment> fragments = new ArrayList<>();
                             final ArrayList<String> titles = new ArrayList<>();
 
-                            for (GoodsClassify goodsClassify : goodsClassifies) {
+                            for (GoodsClassifyListEntity goodsClassify : goodsClassifies) {
                                 GoodsListFragment listFragment = new GoodsListFragment();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("code", goodsClassify.code);
@@ -166,42 +174,21 @@ public class MallFragment extends BaseFragment {
         dataManager.getShoppingCartCount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CountEntity>() {
+                .subscribe(new CustomObserver<CountEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("获取购物车商品数量：" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onError(String message) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(CountEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("获取购物车商品数量，msgCode：" + result.errCode + "/n" + result.message);
-                            ReportUtil.reportError("获取购物车商品数量，msgCode：" + result.errCode + "/n" + result.message);
+                    public void onSuccess(CountEntity result) {
+                        int count = result.data.count;
+                        if (count > 0) {
+                            tvCartCount.setVisibility(View.VISIBLE);
+                            tvCartCount.setText(count + "");
                         } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("获取购物车商品数量, result为空");
-                                return;
-                            }
-
-                            int count = result.data.getCountInt();
-                            if (count > 0) {
-                                tvCartCount.setVisibility(View.VISIBLE);
-                                tvCartCount.setText(count + "");
-                            } else {
-                                tvCartCount.setVisibility(View.GONE);
-                            }
+                            tvCartCount.setVisibility(View.GONE);
                         }
                     }
                 });

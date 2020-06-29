@@ -3,6 +3,7 @@ package com.community.customer.api.user;
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.MobileServerRetrofit;
 import com.community.customer.api.servers.ServerPrice;
+import com.community.customer.api.user.input.CartBody;
 import com.community.customer.api.user.input.DeliveryAddressBody;
 import com.community.customer.api.user.input.LoginBody;
 import com.community.customer.api.user.input.ServiceOrderBody;
@@ -117,8 +118,8 @@ public class UserDataManager {
         return service.getServerOrderDetail(orderID);
     }
 
-    public Observable<EmptyEntity> changeServerOrderStatus(String orderID, String orderStatus, String content) {
-        return service.changeServerOrderStatus(orderID, orderStatus, content);
+    public Observable<EmptyEntity> changeServerOrderStatus(ServiceOrderBody body) {
+        return service.changeServerOrderStatus(body);
     }
 
     /**********  购物车  **********/
@@ -131,8 +132,8 @@ public class UserDataManager {
         return service.getShoppingCartList();
     }
 
-    public Observable<CountEntity> addCart(String goodsid, String typeid, String typeName, int number) {
-        return service.addCart(goodsid, typeid, typeName, number);
+    public Observable<CountEntity> addCart(CartBody body) {
+        return service.addCart(body);
     }
 
     public Observable<CountEntity> deleteCart(String ids) {

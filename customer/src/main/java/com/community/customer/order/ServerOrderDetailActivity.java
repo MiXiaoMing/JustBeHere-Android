@@ -18,6 +18,7 @@ import com.appframe.utils.logger.Logger;
 import com.community.customer.api.CustomObserver;
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.servers.ServerPrice;
+import com.community.customer.api.user.input.ServiceOrderBody;
 import com.community.customer.api.user.result.ServerOrderEntity;
 import com.community.customer.api.user.result.ServerOrderListEntity;
 import com.community.customer.api.user.UserDataManager;
@@ -297,8 +298,12 @@ public class ServerOrderDetailActivity extends AutoBaseTitleActivity {
     private void cancelOrder(String content) {
         Logger.getLogger().d("取消订单，更新状态：" + content);
 
-        UserDataManager dataManager = new UserDataManager();
-        dataManager.changeServerOrderStatus(orderID, "05", content)
+        ServiceOrderBody body = new ServiceOrderBody();
+        body.id = orderID;
+        body.status = "05";
+        body.content = content;
+
+        new UserDataManager().changeServerOrderStatus(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EmptyEntity>() {

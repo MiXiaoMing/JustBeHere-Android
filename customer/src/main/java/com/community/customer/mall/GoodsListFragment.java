@@ -19,15 +19,15 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import com.appframe.utils.logger.Logger;
-import com.community.customer.api.mall.Goods;
+import com.community.customer.api.CustomObserver;
 import com.community.customer.api.mall.GoodsListEntity;
 import com.community.customer.api.mall.MallDataManager;
+import com.community.customer.api.mall.input.GoodsListBody;
 import com.community.customer.mall.adapter.GoodsAdapter;
 import com.community.support.BaseFragment;
 import com.community.support.component.RecyclerViewItemDecoration;
 import com.community.support.component.RecyclerViewScrollListener;
 import com.community.support.utils.ReportUtil;
-import com.community.support.utils.ToastUtil;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -38,8 +38,8 @@ public class GoodsListFragment extends BaseFragment {
     private View view;
     private GoodsAdapter goodsAdapter;
 
-    private ArrayList<Goods> dataList = new ArrayList<>();
-    private int page = 1;
+    private ArrayList<GoodsListEntity> dataList = new ArrayList<>();
+    private int page = 0;
     private String classify;
 
     public GoodsListFragment() {
@@ -92,7 +92,7 @@ public class GoodsListFragment extends BaseFragment {
             public void onRefresh() {
                 // 刷新数据
                 dataList.clear();
-                page = 1;
+                page = 0;
                 getData();
 
                 // 延时1s关闭下拉刷新
@@ -122,49 +122,33 @@ public class GoodsListFragment extends BaseFragment {
 
     private void getData() {
         Logger.getLogger().d("获取商品列表");
-        MallDataManager dataManager = new MallDataManager();
-        dataManager.getGoodsList(classify, page, 20)
+        GoodsListBody body = new GoodsListBody();
+        body.classify = classify;
+        body.page = page;
+        body.number = 20;
+
+        new MallDataManager().getGoodsList(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<GoodsListEntity>() {
+                .subscribe(new CustomObserver<GoodsListEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("获取商品列表：" + e.getMessage());
+                    public void onError(String message) {
                         goodsAdapter.setLoadState(goodsAdapter.LOADING_COMPLETE);
                     }
 
                     @Override
-                    public void onComplete() {
+                    public void onSuccess(GoodsListEntity result) {
                         goodsAdapter.setLoadState(goodsAdapter.LOADING_COMPLETE);
-                    }
 
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(GoodsListEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("获取商品列表，msgCode：" + result.errCode + "/n" + result.message);
-                            ReportUtil.reportError("获取商品列表，msgCode：" + result.errCode + "/n" + result.message);
-                        } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("获取商品列表, result为空");
-                                return;
-                            }
-
-                            List<Goods> goodsList = result.data.getGoodsList();
-                            if (goodsList == null || goodsList.size() == 0) {
-                                goodsAdapter.setLoadState(goodsAdapter.LOADING_END);
-                                return;
-                            }
-
-                            dataList.addAll(goodsList);
-                            goodsAdapter.notifyDataSetChanged();
+                        List<GoodsListEntity> goodsList = result.data;
+                        if (goodsList == null || goodsList.size() == 0) {
+                            goodsAdapter.setLoadState(goodsAdapter.LOADING_END);
+                            return;
                         }
+
+                        dataList.addAll(goodsList);
+                        goodsAdapter.notifyDataSetChanged();
                     }
                 });
     }

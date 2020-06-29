@@ -19,6 +19,7 @@ import com.community.customer.LoginActivity;
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.user.FloatEntity;
 import com.community.customer.api.user.UserDataManager;
+import com.community.customer.api.user.input.ServiceOrderBody;
 import com.community.customer.common.Constants;
 import com.community.customer.event.PayEvent;
 import com.community.customer.order.GoodsOrderDetailActivity;
@@ -476,8 +477,12 @@ public class PayActivity extends AutoBaseTitleActivity {
     private void changeOrderCancel() {
         Logger.getLogger().d("支付超时，更新状态");
 
-        UserDataManager dataManager = new UserDataManager();
-        dataManager.changeServerOrderStatus(orderID, "05", "客户原因(15分钟超时未支付，系统自动取消)")
+        ServiceOrderBody body = new ServiceOrderBody();
+        body.id = orderID;
+        body.status = "05";
+        body.content = "客户原因(15分钟超时未支付，系统自动取消)";
+
+        new UserDataManager().changeServerOrderStatus(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EmptyEntity>() {

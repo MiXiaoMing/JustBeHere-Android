@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.appframe.library.component.image.ImageLoader;
 import com.appframe.utils.logger.Logger;
+import com.community.customer.api.CustomObserver;
 import com.community.customer.common.ServerConfig;
-import com.community.customer.api.mall.Goods;
 import com.community.customer.api.mall.GoodsEntity;
 import com.community.customer.api.mall.MallDataManager;
 import com.community.customer.api.servers.CarouselEntity;
@@ -28,6 +28,7 @@ import com.community.support.AutoBaseTitleActivity;
 import com.community.support.component.FontTextView;
 import com.community.support.utils.GlideImageLoader;
 import com.community.support.utils.ReportUtil;
+import com.community.support.utils.UserInfoUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.youth.banner.Banner;
@@ -44,10 +45,13 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class GoodsDetailActivity extends AutoBaseTitleActivity {
     private TextView tvCartCount;
-    private Goods goods;
+    private GoodsEntity goods;
+    private RelativeLayout rlyCart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,26 +59,26 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
 
         setContentView(R.layout.activity_goods_detail);
 
-        tvCartCount = findViewById(R.id.tvCartCount);
+        findViewById(R.id.llyBack).setOnClickListener(clickListener);
 
+        tvCartCount = findViewById(R.id.tvCartCount);
+        rlyCart = findViewById(R.id.rlyCart);
+
+        findViewById(R.id.rlyPhoneService).setOnClickListener(clickListener);
+        findViewById(R.id.tvAddCart).setOnClickListener(clickListener);
+        findViewById(R.id.tvBuyNow).setOnClickListener(clickListener);
+
+        rlyCart.setOnClickListener(clickListener);
 
         goodsDetail();
     }
 
-    private void initView(Goods goods) {
-        LinearLayout llyBack = findViewById(R.id.llyBack);
-
+    private void initView(GoodsEntity goods) {
         TextView tvTitle = findViewById(R.id.tvTitle);
         TextView tvDesc = findViewById(R.id.tvDesc);
         LinearLayout llyTags = findViewById(R.id.llyTags);
         TextView tvPrice = findViewById(R.id.tvPrice);
         LinearLayout llyContent = findViewById(R.id.llyContent);
-
-        RelativeLayout rlyCart = findViewById(R.id.rlyCart);
-        RelativeLayout rlyPhoneService = findViewById(R.id.rlyPhoneService);
-
-        TextView tvAddCart = findViewById(R.id.tvAddCart);
-        TextView tvBuyNow = findViewById(R.id.tvBuyNow);
 
         tvTitle.setText(goods.title);
         tvDesc.setText(goods.desc);
@@ -85,12 +89,6 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
         }
         initTags(llyTags, goods.tag);
         initContent(llyContent, goods.content);
-
-       llyBack.setOnClickListener(clickListener);
-       rlyCart.setOnClickListener(clickListener);
-       rlyPhoneService.setOnClickListener(clickListener);
-       tvAddCart.setOnClickListener(clickListener);
-       tvBuyNow.setOnClickListener(clickListener);
     }
 
     private void initTags(LinearLayout root, String tagsStr) {
@@ -136,7 +134,7 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
             RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, AutoUtils.getPercentHeightSize(imageHeight));
             layoutParams2.setMargins(0, 0, 0, 0);
             imageView.setLayoutParams(layoutParams2);
-            ImageLoader.normal(this, imageUnit.image, R.drawable.default_image_white, imageView);
+            ImageLoader.normal(this, ServerConfig.file_host + imageUnit.image, R.drawable.default_image_white, imageView);
             root.addView(imageView);
         }
     }
@@ -151,7 +149,7 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
 
         final List<String> images = new ArrayList<>();
         for (int i = 0; i < carousels.size(); i++) {
-            images.add(carousels.get(i).path);
+            images.add(ServerConfig.file_host + carousels.get(i).path);
         }
 
         Banner banner = findViewById(R.id.banner);
@@ -161,7 +159,13 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        shoppingCartCount();
+        if (UserInfoUtil.isLogin()) {
+            rlyCart.setVisibility(View.VISIBLE);
+
+            shoppingCartCount();
+        } else {
+            rlyCart.setVisibility(View.GONE);
+        }
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -210,43 +214,21 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
         String goodsID = getIntent().getStringExtra("goodsid");
         Logger.getLogger().d("商品详情, goodsID -> " + goodsID);
 
-        MallDataManager dataManager = new MallDataManager();
-        dataManager.getGoodsDetail(goodsID)
+        new MallDataManager().getGoodsDetail(RequestBody.create(MediaType.parse("text/plain"), goodsID))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<GoodsEntity>() {
+                .subscribe(new CustomObserver<GoodsEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("商品详情：" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onError(String message) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(GoodsEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("商品详情，msgCode：" + result.errCode + "/n" + result.message);
-                            ReportUtil.reportError("商品详情，msgCode：" + result.errCode + "/n" + result.message);
-                        } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("商品详情, result为空");
-                                return;
-                            }
-
-                            goods = result.data.getGoods();
-                            initView(goods);
-                            initCarouselView(goods.carousels);
-                        }
+                    public void onSuccess(GoodsEntity result) {
+                        goods = result.data;
+                        initView(goods);
+                        initCarouselView(goods.carousels);
                     }
                 });
     }
@@ -258,42 +240,21 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
         dataManager.getShoppingCartCount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CountEntity>() {
+                .subscribe(new CustomObserver<CountEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("获取购物车商品数量：" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onError(String message) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(CountEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("获取购物车商品数量，msgCode：" + result.errCode + "/n" + result.message);
-                            ReportUtil.reportError("获取购物车商品数量，msgCode：" + result.errCode + "/n" + result.message);
+                    public void onSuccess(CountEntity result) {
+                        int count = result.data.count;
+                        if (count > 0) {
+                            tvCartCount.setVisibility(View.VISIBLE);
+                            tvCartCount.setText(count + "");
                         } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("获取购物车商品数量, result为空");
-                                return;
-                            }
-
-                            int count = result.data.getCountInt();
-                            if (count > 0) {
-                                tvCartCount.setVisibility(View.VISIBLE);
-                                tvCartCount.setText(count + "");
-                            } else {
-                                tvCartCount.setVisibility(View.GONE);
-                            }
+                            tvCartCount.setVisibility(View.GONE);
                         }
                     }
                 });
