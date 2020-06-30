@@ -22,13 +22,10 @@ import com.community.support.AutoBaseTitleActivity;
 import com.community.support.component.TypefaceHelper;
 import com.community.support.utils.GPSUtil;
 import com.community.support.utils.PhoneFormatCheckUtils;
-import com.community.support.utils.ReportUtil;
 import com.community.support.utils.ToastUtil;
 
 import cn.wdcloud.acaeva.R;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -91,7 +88,7 @@ public class AddressSettingActivity extends AutoBaseTitleActivity {
 
             etContact.setText(address.contact);
             etContact.setSelection(address.contact.length());
-            etCellphone.setText(address.cellphone);
+            etCellphone.setText(address.phoneNumber);
             etRegion.setText(address.region);
             etDetail.setText(address.detail);
         }
@@ -169,7 +166,7 @@ public class AddressSettingActivity extends AutoBaseTitleActivity {
             address.id = this.address.id;
         }
         address.contact = contact;
-        address.cellphone = cellphone;
+        address.phoneNumber = cellphone;
         address.region = region;
         address.detail = detail;
 

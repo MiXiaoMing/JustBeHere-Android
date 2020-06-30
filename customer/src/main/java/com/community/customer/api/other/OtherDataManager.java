@@ -2,8 +2,11 @@ package com.community.customer.api.other;
 
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.MobileServerRetrofit;
+import com.community.customer.api.user.FeedbackEntity;
 
 import io.reactivex.Observable;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * 其他接口
@@ -17,7 +20,7 @@ public class OtherDataManager {
 
     /**********  用户反馈  **********/
 
-    public Observable<EmptyEntity> feedback(String cid, String content) {
-        return service.feedback(cid, content);
+    public Observable<FeedbackEntity> feedback(String content) {
+        return service.feedback(RequestBody.create(MediaType.parse("text/plain"), content));
     }
 }

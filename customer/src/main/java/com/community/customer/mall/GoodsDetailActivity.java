@@ -211,7 +211,7 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
     }
 
     private void goodsDetail() {
-        String goodsID = getIntent().getStringExtra("goodsid");
+        final String goodsID = getIntent().getStringExtra("goodsid");
         Logger.getLogger().d("商品详情, goodsID -> " + goodsID);
 
         new MallDataManager().getGoodsDetail(RequestBody.create(MediaType.parse("text/plain"), goodsID))
@@ -227,6 +227,21 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
                     @Override
                     public void onSuccess(GoodsEntity result) {
                         goods = result.data;
+
+                        for (int i = 0; i < goods.prices.size(); ++i) {
+                            if (i == 0) {
+                                goods.mixPrice = goods.prices.get(0).price;
+                                goods.maxPrice = goods.prices.get(0).price;
+                            } else {
+                                if (goods.mixPrice > goods.prices.get(i).price) {
+                                    goods.mixPrice = goods.prices.get(i).price;
+                                }
+                                if (goods.maxPrice < goods.prices.get(i).price) {
+                                    goods.maxPrice = goods.prices.get(i).price;
+                                }
+                            }
+                        }
+
                         initView(goods);
                         initCarouselView(goods.carousels);
                     }

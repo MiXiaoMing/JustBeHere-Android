@@ -303,7 +303,7 @@ public class ServerOrderSelectActivity extends AutoBaseTitleActivity {
                             addressID = addressArrayList.get(0).id;
                             tvContact.setText(addressArrayList.get(0).contact);
                             tvAddress.setText(addressArrayList.get(0).region);
-                            tvCellphone.setText(addressArrayList.get(0).cellphone);
+                            tvCellphone.setText(addressArrayList.get(0).phoneNumber);
 
                             rlyAddressNone.setVisibility(View.GONE);
                             rlyAddress.setVisibility(View.VISIBLE);
@@ -374,7 +374,7 @@ public class ServerOrderSelectActivity extends AutoBaseTitleActivity {
 
                             tvContact.setText(address.contact);
                             tvAddress.setText(address.region);
-                            tvCellphone.setText(address.cellphone);
+                            tvCellphone.setText(address.phoneNumber);
 
                             rlyAddressNone.setVisibility(View.GONE);
                             rlyAddress.setVisibility(View.VISIBLE);

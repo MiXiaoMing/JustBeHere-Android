@@ -16,11 +16,13 @@ import android.widget.TextView;
 
 import com.appframe.library.component.image.ImageLoader;
 import com.appframe.utils.logger.Logger;
+import com.community.customer.api.CustomObserver;
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.user.GoodsOrderDetailEntity;
 import com.community.customer.api.user.GoodsOrderEntity;
 import com.community.customer.api.user.UserDataManager;
 import com.community.customer.common.Constants;
+import com.community.customer.common.ServerConfig;
 import com.community.customer.mine.PayActivity;
 import com.community.support.AutoBaseTitleActivity;
 import com.community.support.component.FontTextView;
@@ -52,8 +54,7 @@ public class GoodsOrderDetailActivity extends AutoBaseTitleActivity {
         orderDetail();
     }
 
-    // TODO: 2020/6/24 这里的逻辑 不对  入参
-    private void initView(GoodsOrderEntity order) {
+    private void initView(GoodsOrderDetailEntity order) {
         if (order == null) {
             finish();
             return;
@@ -89,45 +90,45 @@ public class GoodsOrderDetailActivity extends AutoBaseTitleActivity {
         tvCancel.setOnClickListener(clickListener);
         tvPay.setOnClickListener(clickListener);
 
-        tvStatus.setText(Constants.convertServerOrderStatus(order.status));
-        tvStatus.setTextColor(Constants.getServerStatusColor(order.status));
-        tvContact.setText(order.contact);
-        tvAddress.setText(order.region);
-        tvCellphone.setText(order.cellphone);
-        if (order.status.equals("05")) {
+        tvStatus.setText(Constants.convertServerOrderStatus(order.goodsOrder.status));
+        tvStatus.setTextColor(Constants.getServerStatusColor(order.goodsOrder.status));
+        tvContact.setText(order.deliveryAddress.contact);
+        tvAddress.setText(order.deliveryAddress.region);
+        tvCellphone.setText(order.deliveryAddress.phoneNumber);
+        if (order.goodsOrder.status.equals("05")) {
             llyCancel.setVisibility(View.VISIBLE);
-            tvUpdateTime.setText(order.cancelTime);
-            if (TextUtils.isEmpty(order.content)) {
+            tvUpdateTime.setText(order.goodsOrder.updateTime);
+            if (TextUtils.isEmpty(order.goodsOrder.content)) {
                 tvCancelMessage.setVisibility(View.GONE);
             } else {
                 tvCancelMessage.setVisibility(View.VISIBLE);
-                tvCancelMessage.setText(order.content);
+                tvCancelMessage.setText(order.goodsOrder.content);
             }
         } else {
             llyCancel.setVisibility(View.GONE);
         }
-        tvItemCount.setText("共" + order.itemsCount + "件商品，共计");
-        tvPrice.setText(order.price + "");
+        tvItemCount.setText("共" + order.items.size() + "件商品，共计");
+        tvPrice.setText(order.goodsOrder.price + "");
         initItems(llyItems, order.items);
-        if (TextUtils.isEmpty(order.remind)) {
+        if (TextUtils.isEmpty(order.goodsOrder.remind)) {
             llyRemind.setVisibility(View.GONE);
         } else {
             llyRemind.setVisibility(View.VISIBLE);
-            tvRemind.setText(order.remind);
+            tvRemind.setText(order.goodsOrder.remind);
         }
 
-        tvOrderID.setText(order.id);
-        tvCreateTime.setText(order.createTime);
+        tvOrderID.setText(order.goodsOrder.id);
+        tvCreateTime.setText(order.goodsOrder.createTime);
 
-        price = order.price;
-        tradeID = order.tradeid;
+        price = order.goodsOrder.price;
+        tradeID = order.goodsOrder.tradeID;
 
-        if (order.status.equals("01")) {
+        if (order.goodsOrder.status.equals("01")) {
             llyBottom.setVisibility(View.VISIBLE);
 
-            Logger.getLogger().d("倒计时：" + order.payTime);
+            Logger.getLogger().d("倒计时：" + order.goodsOrder.remainTime);
 
-            new CountDownTimer(order.payTime, 1000) {
+            new CountDownTimer(order.goodsOrder.remainTime, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     if (millisUntilFinished > 60 * 1000) {
@@ -148,9 +149,9 @@ public class GoodsOrderDetailActivity extends AutoBaseTitleActivity {
         }
     }
 
-    private void initItems(LinearLayout root, ArrayList<GoodsOrderEntity.Item> items) {
+    private void initItems(LinearLayout root, ArrayList<GoodsOrderDetailEntity.Item> items) {
         for (int i = 0; i < items.size(); ++i) {
-            GoodsOrderEntity.Item item = items.get(i);
+            GoodsOrderDetailEntity.Item item = items.get(i);
             if (item.number <= 0) {
                 return;
             }
@@ -174,7 +175,7 @@ public class GoodsOrderDetailActivity extends AutoBaseTitleActivity {
                 RoundCornerImageView imageView = new RoundCornerImageView(this, AutoUtils.getPercentWidthSize(10));
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(AutoUtils.getPercentWidthSize(65), AutoUtils.getPercentWidthSize(65));
                 imageView.setLayoutParams(layoutParams);
-                ImageLoader.normal(this, item.icon, R.drawable.default_image_white, imageView);
+                ImageLoader.normal(this, ServerConfig.file_host + item.icon, R.drawable.default_image_white, imageView);
                 linearLayout.addView(imageView);
             }
             LinearLayout linearLayout1 = new LinearLayout(this);
@@ -296,39 +297,16 @@ public class GoodsOrderDetailActivity extends AutoBaseTitleActivity {
         dataManager.getGoodsOrderDetail(orderID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<GoodsOrderDetailEntity>() {
+                .subscribe(new CustomObserver<GoodsOrderDetailEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("订单详情：" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onError(String message) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(GoodsOrderDetailEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("订单详情，msgCode：" + result.errCode + "/n" + result.message);
-                            ReportUtil.reportError("订单详情，msgCode：" + result.errCode + "/n" + result.message);
-                        } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("订单详情, result为空");
-                                return;
-                            }
-
-                            // TODO: 2020/6/24 现在还不知道返回值
-//                            GoodsOrderEntity goodsOrder = result.data;
-//                            initView(goodsOrder);
-                        }
+                    public void onSuccess(GoodsOrderDetailEntity result) {
+                        initView(result.data);
                     }
                 });
     }

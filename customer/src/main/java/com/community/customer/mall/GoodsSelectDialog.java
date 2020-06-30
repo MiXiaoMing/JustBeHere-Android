@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.community.customer.api.user.CountEntity;
 import com.community.customer.api.user.GoodsOrderConfirm;
 import com.community.customer.api.user.UserDataManager;
 import com.community.customer.api.user.input.CartBody;
+import com.community.customer.common.ServerConfig;
 import com.community.customer.order.GoodsOrderConfirmActivity;
 import com.community.support.component.AutoFlowLayout;
 import com.community.support.component.BaseDialog;
@@ -90,7 +92,7 @@ public class GoodsSelectDialog extends BaseDialog {
 
         TextView tvSubmit = view.findViewById(R.id.tvSubmit);
 
-        ImageLoader.normal(this.getActivity(), goods.icon, R.drawable.default_image_white, ivIcon);
+        ImageLoader.normal(this.getActivity(), ServerConfig.file_host + goods.icon, R.drawable.default_image_white, ivIcon);
         if (goods.mixPrice == goods.maxPrice) {
             tvPrice.setText("¥ " + goods.mixPrice);
         } else {
@@ -101,6 +103,7 @@ public class GoodsSelectDialog extends BaseDialog {
             tvSelectType.setText("请选择：数量");
             llyType.setVisibility(View.GONE);
         } else {
+            llyType.setVisibility(View.VISIBLE);
             tvSelectType.setText("请选择：规格，数量");
             aflyTypes.setMultiChecked(false);
             aflyTypes.setAdapter(new FlowAdapter(goods.prices) {
@@ -108,12 +111,13 @@ public class GoodsSelectDialog extends BaseDialog {
                 public View getView(int position) {
                     TextView textView = new FontTextView(GoodsSelectDialog.this.getActivity());
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, AutoUtils.getPercentHeightSize(27));
-//                    layoutParams.setMargins(AutoUtils.getPercentWidthSize(20), 0, 0, 0);
-//                    if (!TextUtils.isEmpty(selectTypeID) && selectTypeID.equals(goods.items.get(position).id)) {
-////                        textView.setBackgroundResource(R.drawable.shape_stroke_4e_2);
-////                    } else {
-////                        textView.setBackgroundResource(R.drawable.shape_rectangle_corner_white_3);
-////                    }
+                    layoutParams.setMargins(AutoUtils.getPercentWidthSize(20), 0, 0, 0);
+                    if (!TextUtils.isEmpty(selectTypeID) && selectTypeID.equals(goods.prices.get(position).id)) {
+                        textView.setBackgroundResource(R.drawable.shape_stroke_4e_2);
+                    } else {
+                        textView.setBackgroundResource(R.drawable.shape_rectangle_corner_white_3);
+                    }
+                    textView.setGravity(Gravity.CENTER);
                     textView.setLayoutParams(layoutParams);
                     textView.setText(goods.prices.get(position).name);
                     textView.setTextColor(Color.parseColor("#3a3a3a"));

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.appframe.utils.app.ActivityUtil;
 import com.appframe.utils.logger.Logger;
 import com.community.customer.common.ServerConfig;
 import com.community.customer.api.servers.Server;
@@ -30,6 +31,10 @@ import cn.wdcloud.acaeva.R;
 public class ServerCommonView {
 
     public static void serverClassify(final Activity activity, LinearLayout root, ServerClassify serverClassify) {
+        if (!ActivityUtil.isAvailable(activity)) {
+            return;
+        }
+
         LinearLayout linearLayout = new LinearLayout(activity);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

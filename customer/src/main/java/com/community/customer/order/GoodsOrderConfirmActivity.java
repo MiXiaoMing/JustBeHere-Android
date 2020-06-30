@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.community.customer.api.user.AddressEntity;
 import com.community.customer.api.user.GoodsOrderConfirm;
 import com.community.customer.api.user.UserDataManager;
 import com.community.customer.common.Constants;
+import com.community.customer.common.ServerConfig;
 import com.community.customer.event.PayEvent;
 import com.community.customer.mine.AddressListActivity;
 import com.community.customer.mine.PayActivity;
@@ -128,10 +130,10 @@ public class GoodsOrderConfirmActivity extends AutoBaseTitleActivity {
                 root.addView(linearLayout);
             }
             {
-                RoundCornerImageView imageView = new RoundCornerImageView(this, AutoUtils.getPercentWidthSize(10));
+                ImageView imageView = new ImageView(this);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(AutoUtils.getPercentWidthSize(65), AutoUtils.getPercentWidthSize(65));
                 imageView.setLayoutParams(layoutParams);
-                ImageLoader.normal(this, item.icon, R.drawable.default_image_white, imageView);
+                ImageLoader.normal(this, ServerConfig.file_host + item.icon, R.drawable.default_image_white, imageView);
                 linearLayout.addView(imageView);
             }
             LinearLayout linearLayout1 = new LinearLayout(this);
@@ -341,11 +343,11 @@ public class GoodsOrderConfirmActivity extends AutoBaseTitleActivity {
                                 goodsConfirm.addressid = addressArrayList.get(0).id;
                                 goodsConfirm.contact = addressArrayList.get(0).contact;
                                 goodsConfirm.region = addressArrayList.get(0).region;
-                                goodsConfirm.cellphone = addressArrayList.get(0).cellphone;
+                                goodsConfirm.cellphone = addressArrayList.get(0).phoneNumber;
 
                                 tvContact.setText(addressArrayList.get(0).contact);
                                 tvAddress.setText(addressArrayList.get(0).region);
-                                tvCellphone.setText(addressArrayList.get(0).cellphone);
+                                tvCellphone.setText(addressArrayList.get(0).phoneNumber);
 
                                 rlyAddressNone.setVisibility(View.GONE);
                                 rlyAddress.setVisibility(View.VISIBLE);
@@ -381,11 +383,11 @@ public class GoodsOrderConfirmActivity extends AutoBaseTitleActivity {
                             goodsConfirm.addressid = address.id;
                             goodsConfirm.contact = address.contact;
                             goodsConfirm.region = address.region;
-                            goodsConfirm.cellphone = address.cellphone;
+                            goodsConfirm.cellphone = address.phoneNumber;
 
                             tvContact.setText(address.contact);
                             tvAddress.setText(address.region);
-                            tvCellphone.setText(address.cellphone);
+                            tvCellphone.setText(address.phoneNumber);
 
                             rlyAddressNone.setVisibility(View.GONE);
                             rlyAddress.setVisibility(View.VISIBLE);

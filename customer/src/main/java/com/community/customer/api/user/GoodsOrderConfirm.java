@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class GoodsOrderConfirm implements Serializable {
     public String addressid, contact, region, cellphone, remind;
-    public Float price;
+    public float price;
     public ArrayList<Item> items = new ArrayList<>();
 
     public GoodsOrderConfirm() {

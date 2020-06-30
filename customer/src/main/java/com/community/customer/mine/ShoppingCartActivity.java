@@ -137,8 +137,8 @@ public class ShoppingCartActivity extends AutoBaseTitleActivity {
 
                         ArrayList<CartListEntity> carts = cartAdapter.getAll();
                         for (CartListEntity cart : carts) {
-                            goodsConfirm.addItem(cart.goodsid, cart.title, cart.icon, cart.typeID, cart.typeName, cart.typePrice, cart.number);
-                            goodsConfirm.price += cart.typePrice * cart.number;
+                            goodsConfirm.addItem(cart.goods.code, cart.goods.title, cart.goods.icon, cart.cart.typeID, cart.cart.typeName, cart.price.price, cart.cart.number);
+                            goodsConfirm.price += cart.price.price * cart.cart.number;
                         }
 
                         Intent intent = new Intent(ShoppingCartActivity.this, GoodsOrderConfirmActivity.class);

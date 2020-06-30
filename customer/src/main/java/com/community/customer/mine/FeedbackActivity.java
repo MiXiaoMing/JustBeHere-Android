@@ -8,8 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.appframe.utils.logger.Logger;
+import com.community.customer.api.CustomObserver;
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.other.OtherDataManager;
+import com.community.customer.api.user.FeedbackEntity;
 import com.community.support.AutoBaseTitleActivity;
 import com.community.support.component.TypefaceHelper;
 import com.community.support.utils.PushUtil;
@@ -60,37 +62,18 @@ public class FeedbackActivity extends AutoBaseTitleActivity {
         Logger.getLogger().d("提交反馈");
         String content = etRemind.getText().toString().trim();
 
-        OtherDataManager dataManager = new OtherDataManager();
-        dataManager.feedback(PushUtil.getCID(), content)
+        new OtherDataManager().feedback(content)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<EmptyEntity>() {
+                .subscribe(new CustomObserver<FeedbackEntity>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("提交反馈：" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onError(String message) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(EmptyEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("提交反馈，msgCode：" + result.errCode + "/n" + result.message);
-                        } else {
-                            if (result.data == null) {
-                                Logger.getLogger().e("提交反馈, result为空");
-                            }
-                        }
+                    public void onSuccess(FeedbackEntity result) {
                         ToastUtil.show(FeedbackActivity.this, "感谢您的支持，我们再接再厉 ！");
                         finish();
                     }

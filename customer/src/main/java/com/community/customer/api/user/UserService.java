@@ -1,8 +1,10 @@
 package com.community.customer.api.user;
 
 import com.community.customer.api.EmptyEntity;
+import com.community.customer.api.user.entity.Cart;
 import com.community.customer.api.user.input.CartBody;
 import com.community.customer.api.user.input.DeliveryAddressBody;
+import com.community.customer.api.user.input.GoodsOrderBody;
 import com.community.customer.api.user.input.LoginBody;
 import com.community.customer.api.user.input.ServiceOrderBody;
 import com.community.customer.api.user.result.ServerOrderEntity;
@@ -52,12 +54,12 @@ public interface UserService {
     Observable<EmptyEntity> addAddress(@Body DeliveryAddressBody body);
 
 
-    @POST("user/updateAddress")
-    Observable<EmptyEntity> updateAddress(@Field("id") String id, @Field("contact") String contact, @Field("cellphone") String cellphone, @Field("region") String region, @Field("detail") String detail);
+    @POST("user/updateDeliveryAddress")
+    Observable<EmptyEntity> updateAddress(@Body DeliveryAddressBody body);
 
 
-    @POST("user/deleteAddress")
-    Observable<EmptyEntity> deleteAddress(@Field("id") String id, @Field("contact") String contact, @Field("cellphone") String cellphone, @Field("region") String region, @Field("detail") String detail);
+    @POST("user/deleteDeliveryAddress")
+    Observable<EmptyEntity> deleteAddress(@Body RequestBody body);
 
     /**********  服务地址  **********/
 
@@ -99,25 +101,25 @@ public interface UserService {
     @POST("cart/addToCart")
     Observable<CountEntity> addCart(@Body CartBody body);
 
-    @POST("user/deleteCart")
-    Observable<CountEntity> deleteCart(@Field("ids") String ids);
+    @POST("cart/deleteFromCart")
+    Observable<Cart> deleteCart(@Body RequestBody body);
 
-    @POST("user/updateCartCount")
-    Observable<EmptyEntity> updateCartCount(@Field("cartID") String id, @Field("number") int number);
+    @POST("cart/updateToCart")
+    Observable<Cart> updateCartCount(@Body CartBody body);
 
     /**********  商品订单  **********/
 
     @POST("order/addGoodsOrder")
-    Observable<AddOrderEntity> addGoodsOrder(@Field("addressid") String addressid, @Field("goodsItems") String goodsItems, @Field("remind") String remind);
+    Observable<AddOrderEntity> addGoodsOrder(@Body GoodsOrderBody body);
 
-    @GET("order/getGoodsOrder")
-    Observable<GoodsOrderDetailEntity> getGoodsOrderDetail(@Query("orderID") String orderID);
+    @POST("order/getGoodsOrder")
+    Observable<GoodsOrderDetailEntity> getGoodsOrderDetail(@Body RequestBody body);
 
 
     @POST("user/changeGoodsOrderStatus")
     Observable<EmptyEntity> changeGoodsOrderStatus(@Field("orderid") String orderid, @Field("orderStatus") String orderStatus, @Field("content") String content);
 
-    @POST("order/getGoodsOrderList")
+    @POST("order/getAllGoodsOrder")
     Observable<GoodsOrderEntity> getGoodsOrderList();
 
     @POST("order/getAllUndoneGoodsOrder")

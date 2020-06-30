@@ -102,7 +102,7 @@ public class GoodsOrderListFragment extends BaseFragment {
                         List<GoodsOrderEntity> goodsOrders = result.data;
                         ArrayList<GoodsOrderEntity> resultOrders = new ArrayList<>();
                         for (GoodsOrderEntity order : goodsOrders) {
-                            if (Constants.convertGoodsOrderStatus(order.status).equals(type)) {
+                            if (Constants.convertGoodsOrderStatus(order.goodsOrder.status).equals(type)) {
                                 resultOrders.add(order);
                             }
                         }

@@ -16,6 +16,9 @@ import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.user.CartListEntity;
 import com.community.customer.api.user.CountEntity;
 import com.community.customer.api.user.UserDataManager;
+import com.community.customer.api.user.entity.Cart;
+import com.community.customer.api.user.input.CartBody;
+import com.community.customer.common.ServerConfig;
 import com.community.customer.mine.ShoppingCartActivity;
 import com.community.support.utils.ReportUtil;
 
@@ -74,16 +77,16 @@ public class CartAdapter extends BaseAdapter {
 
         final CartListEntity cart = entities.get(position);
 
-        ImageLoader.circle(activity, cart.icon, R.drawable.default_image_white, viewHolder.ivIcon);
-        viewHolder.tvTitle.setText(cart.title);
-        if (TextUtils.isEmpty(cart.typeName)) {
+        ImageLoader.normal(activity, ServerConfig.file_host + cart.goods.icon, R.drawable.default_image_white, viewHolder.ivIcon);
+        viewHolder.tvTitle.setText(cart.goods.title);
+        if (TextUtils.isEmpty(cart.cart.typeName)) {
             viewHolder.tvTypeName.setVisibility(View.GONE);
         } else {
             viewHolder.tvTypeName.setVisibility(View.VISIBLE);
-            viewHolder.tvTypeName.setText(cart.typeName);
+            viewHolder.tvTypeName.setText(cart.cart.typeName);
         }
-        viewHolder.tvPrice.setText("¥ " + cart.typePrice);
-        viewHolder.tvNumber.setText(cart.number + "");
+        viewHolder.tvPrice.setText("¥ " + cart.price.price);
+        viewHolder.tvNumber.setText(cart.cart.number + "");
 
         if (cart.isSelect) {
             viewHolder.ivSelect.setImageResource(R.drawable.icon_selected);
@@ -109,12 +112,12 @@ public class CartAdapter extends BaseAdapter {
         viewHolder.rlySub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int number = cart.number;
+                int number = cart.cart.number;
                 if (number > 0) {
                     number -= 1;
-                    entities.get(position).number = number;
+                    entities.get(position).cart.number = number;
                     viewHolder.tvNumber.setText(number + "");
-                    updateCount(entities.get(position).id, number);
+                    updateCount(entities.get(position).cart.id, number);
                 }
                 notifyCount();
             }
@@ -122,11 +125,11 @@ public class CartAdapter extends BaseAdapter {
         viewHolder.rlyAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int number = cart.number;
+                int number = cart.cart.number;
                 number += 1;
-                entities.get(position).number = number;
+                entities.get(position).cart.number = number;
                 viewHolder.tvNumber.setText(number + "");
-                updateCount(entities.get(position).id, number);
+                updateCount(entities.get(position).cart.id, number);
 
                 notifyCount();
             }
@@ -170,7 +173,7 @@ public class CartAdapter extends BaseAdapter {
                 if (!TextUtils.isEmpty(ids)) {
                     ids += ",";
                 }
-                ids += cart.id;
+                ids += cart.cart.id;
                 cartIterator.remove();
             }
         }
@@ -189,7 +192,7 @@ public class CartAdapter extends BaseAdapter {
                 isAllSelect = false;
             } else {
                 selectCount += 1;
-                price += cart.typePrice * cart.number;
+                price += cart.price.price * cart.cart.number;
             }
         }
         activity.notifyCount(isAllSelect, selectCount, price);
@@ -207,7 +210,7 @@ public class CartAdapter extends BaseAdapter {
         dataManager.deleteCart(ids)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CustomObserver<CountEntity>() {
+                .subscribe(new CustomObserver<Cart>() {
 
                     @Override
                     public void onError(String message) {
@@ -215,12 +218,7 @@ public class CartAdapter extends BaseAdapter {
                     }
 
                     @Override
-                    public void onSuccess(CountEntity result) {
-                        int count = result.data.count;
-                    }
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSuccess(Cart result) {
 
                     }
                 });
@@ -228,33 +226,24 @@ public class CartAdapter extends BaseAdapter {
 
     private void updateCount(String id, int number) {
         Logger.getLogger().d("更新购物车商品数量:" + id + "..." + number);
-        UserDataManager dataManager = new UserDataManager();
-        dataManager.updateCartCount(id, number)
+
+        CartBody body = new CartBody();
+        body.id = id;
+        body.number = number;
+
+        new UserDataManager().updateCartCount(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<EmptyEntity>() {
+                .subscribe(new CustomObserver<Cart>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        ReportUtil.reportError(e);
-                        Logger.getLogger().e("更新购物车商品数量：" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onError(String message) {
 
                     }
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSuccess(Cart result) {
 
-                    }
-
-                    @Override
-                    public void onNext(EmptyEntity result) {
-                        if (!result.success) {
-                            Logger.getLogger().e("更新购物车商品数量，msgCode：" + result.errCode + "/n" + result.message);
-                        }
                     }
                 });
     }

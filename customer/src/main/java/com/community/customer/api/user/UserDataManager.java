@@ -2,9 +2,12 @@ package com.community.customer.api.user;
 
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.MobileServerRetrofit;
+import com.community.customer.api.mall.entity.Goods;
 import com.community.customer.api.servers.ServerPrice;
+import com.community.customer.api.user.entity.Cart;
 import com.community.customer.api.user.input.CartBody;
 import com.community.customer.api.user.input.DeliveryAddressBody;
+import com.community.customer.api.user.input.GoodsOrderBody;
 import com.community.customer.api.user.input.LoginBody;
 import com.community.customer.api.user.input.ServiceOrderBody;
 import com.community.customer.api.user.result.ServerOrderEntity;
@@ -15,6 +18,7 @@ import com.community.support.common.UserInfo;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 /**
@@ -57,13 +61,20 @@ public class UserDataManager {
 
     public Observable<EmptyEntity> address(AddressEntity address, String type) {
         if (type.equals("U")) {
-            return service.updateAddress(address.id, address.contact, address.cellphone, address.region, address.detail);
+            DeliveryAddressBody body = new DeliveryAddressBody();
+            body.id = address.id;
+            body.contact = address.contact;
+            body.phoneNumber = address.phoneNumber;
+            body.region = address.region;
+            body.detail = address.detail;
+
+            return service.updateAddress(body);
         } else if (type.equals("D")) {
-            return service.deleteAddress(address.id, address.contact, address.cellphone, address.region, address.detail);
+            return service.deleteAddress(RequestBody.create(MediaType.parse("text/plain"), address.id));
         } else {
             DeliveryAddressBody body = new DeliveryAddressBody();
             body.contact = address.contact;
-            body.phoneNumber = address.cellphone;
+            body.phoneNumber = address.phoneNumber;
             body.region = address.region;
             body.detail = address.detail;
             return service.addAddress(body);
@@ -136,30 +147,39 @@ public class UserDataManager {
         return service.addCart(body);
     }
 
-    public Observable<CountEntity> deleteCart(String ids) {
-        return service.deleteCart(ids);
+    public Observable<Cart> deleteCart(String id) {
+        return service.deleteCart(RequestBody.create(MediaType.parse("text/plain"), id));
     }
 
-    public Observable<EmptyEntity> updateCartCount(String id, int number) {
-        return service.updateCartCount(id, number);
+    public Observable<Cart> updateCartCount(CartBody body) {
+        return service.updateCartCount(body);
     }
 
     /**********  商品订单  **********/
 
     public Observable<AddOrderEntity> addGoodsOrder(GoodsOrderConfirm orderConfirm) {
         String items = "[";
-        for (GoodsOrderConfirm.Item item : orderConfirm.items) {
+        for (int i = 0; i < orderConfirm.items.size(); ++i) {
+            GoodsOrderConfirm.Item item = orderConfirm.items.get(i);
             if (item.number > 0) {
-                items += "{goodsid:\"" + item.goodsid + "\",typeName:\"" + item.typeName + "\",typeid:\"" + item.typeid + "\",typePrice:" + item.typePrice + ",number:" + item.number + "}";
+                if (i != 0) {
+                    items += ",";
+                }
+                items += "{code:\"" + item.goodsid + "\",typeName:\"" + item.typeName + "\",typeID:\"" + item.typeid + "\",typePrice:" + item.typePrice + ",number:" + item.number + "}";
             }
         }
         items += "]";
 
-        return service.addGoodsOrder(orderConfirm.addressid, items, orderConfirm.remind);
+        GoodsOrderBody body = new GoodsOrderBody();
+        body.deliveryAddressID = orderConfirm.addressid;
+        body.goodsItems = items;
+        body.remind = orderConfirm.remind;
+
+        return service.addGoodsOrder(body);
     }
 
     public Observable<GoodsOrderDetailEntity> getGoodsOrderDetail(String orderID) {
-        return service.getGoodsOrderDetail(orderID);
+        return service.getGoodsOrderDetail(RequestBody.create(MediaType.parse("text/plain"), orderID));
     }
 
     public Observable<EmptyEntity> changeGoodsOrderStatus(String orderID, String orderStatus, String content) {

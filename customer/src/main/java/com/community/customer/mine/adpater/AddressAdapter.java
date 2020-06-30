@@ -57,7 +57,7 @@ public class AddressAdapter extends BaseAdapter {
 
         viewHolder.tvName.setText(entities.get(position).contact);
         viewHolder.tvRegion.setText(entities.get(position).region);
-        viewHolder.tvCellphone.setText(entities.get(position).cellphone);
+        viewHolder.tvCellphone.setText(entities.get(position).phoneNumber);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

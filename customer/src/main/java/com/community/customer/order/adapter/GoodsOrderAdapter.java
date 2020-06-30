@@ -2,16 +2,19 @@ package com.community.customer.order.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.appframe.library.component.image.ImageLoader;
 import com.community.customer.api.user.GoodsOrderEntity;
 import com.community.customer.common.Constants;
+import com.community.customer.common.ServerConfig;
 import com.community.customer.order.GoodsOrderDetailActivity;
 import com.community.support.component.RoundCornerImageView;
 import com.zhy.autolayout.utils.AutoUtils;
@@ -61,20 +64,20 @@ public class GoodsOrderAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tvCreateTime.setText(entities.get(position).createTime);
+        viewHolder.tvCreateTime.setText(entities.get(position).goodsOrder.createTime);
 
-        String status = entities.get(position).status;
+        String status = entities.get(position).goodsOrder.status;
         viewHolder.tvStatus.setText(Constants.convertGoodsOrderStatus(status));
         viewHolder.tvStatus.setTextColor(Constants.getGoodsStatusColor(status));
-        viewHolder.tvCount.setText("共" + entities.get(position).itemsCount + "件商品，实付额：");
-        viewHolder.tvPrice.setText(entities.get(position).price + "");
+        viewHolder.tvCount.setText("共" + entities.get(position).items.size() + "件商品，实付额：");
+        viewHolder.tvPrice.setText(entities.get(position).goodsOrder.price + "");
         initIcons(viewHolder.llyIcons, entities.get(position).items);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, GoodsOrderDetailActivity.class);
-                intent.putExtra("orderID", entities.get(position).id);
+                intent.putExtra("orderID", entities.get(position).goodsOrder.id);
                 context.startActivity(intent);
             }
         });
@@ -89,10 +92,10 @@ public class GoodsOrderAdapter extends BaseAdapter {
                 view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1));
                 root.addView(view);
             }
-            RoundCornerImageView imageView = new RoundCornerImageView(context, AutoUtils.getPercentWidthSize(10));
+            ImageView imageView = new ImageView(context);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(AutoUtils.getPercentWidthSize(55), AutoUtils.getPercentWidthSize(55));
             imageView.setLayoutParams(layoutParams);
-            ImageLoader.normal(context, items.get(i).icon, R.drawable.default_image_white, imageView);
+            ImageLoader.normal(context, ServerConfig.file_host + items.get(i).icon, R.drawable.default_image_white, imageView);
             root.addView(imageView);
         }
     }
