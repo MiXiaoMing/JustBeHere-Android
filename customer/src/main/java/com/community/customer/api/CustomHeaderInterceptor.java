@@ -1,6 +1,7 @@
 package com.community.customer.api;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.community.support.utils.AuthUtil;
 
@@ -20,7 +21,9 @@ public class CustomHeaderInterceptor implements Interceptor {
         Request.Builder builder = chain.request().newBuilder();
         builder.addHeader("Content-Type", "application/json");
         builder.addHeader("Accept", "application/json");
-        builder.addHeader("token", AuthUtil.getAuth());
+        if (!TextUtils.isEmpty(AuthUtil.getAuth())) {
+            builder.addHeader("token", AuthUtil.getAuth());
+        }
         return chain.proceed(builder.build());
     }
 }

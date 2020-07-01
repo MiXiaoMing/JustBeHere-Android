@@ -41,6 +41,7 @@ public class MobileServerRetrofit {
         List<Interceptor> interceptors = builder.interceptors();
         // 添加header信息
         interceptors.add(0, new CustomHeaderInterceptor());
+        interceptors.add(new AuthInterceptor());
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(ServerConfig.host)
