@@ -3,12 +3,14 @@ package com.community.customer.api.user;
 import com.appframe.library.network.http.validate.IAfterDeserializeAction;
 import com.community.customer.api.user.entity.DeliveryAddress;
 import com.community.customer.api.user.entity.GoodsOrder;
+import com.community.customer.api.user.entity.Order;
 import com.community.support.common.BaseResult;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class GoodsOrderDetailEntity extends BaseResult<GoodsOrderDetailEntity> implements IAfterDeserializeAction {
+    public Order order;
     public GoodsOrder goodsOrder;
     public DeliveryAddress deliveryAddress;
 

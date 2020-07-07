@@ -64,7 +64,7 @@ public class ServerOrderAdapter extends BaseAdapter {
         viewHolder.tvServerTime.setText(entities.get(position).serviceOrder.serviceTime);
         viewHolder.tvAddress.setText(entities.get(position).deliveryAddress.region);
 
-        String status = entities.get(position).serviceOrder.status;
+        String status = entities.get(position).order.status;
         viewHolder.tvStatus.setText(Constants.convertServerOrderStatus(status));
         viewHolder.tvStatus.setTextColor(Constants.getServerStatusColor(status));
         if (status.equals("01")) {

@@ -64,9 +64,9 @@ public class GoodsOrderAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tvCreateTime.setText(entities.get(position).goodsOrder.createTime);
+        viewHolder.tvCreateTime.setText(entities.get(position).order.createTime);
 
-        String status = entities.get(position).goodsOrder.status;
+        String status = entities.get(position).order.status;
         viewHolder.tvStatus.setText(Constants.convertGoodsOrderStatus(status));
         viewHolder.tvStatus.setTextColor(Constants.getGoodsStatusColor(status));
         viewHolder.tvCount.setText("共" + entities.get(position).items.size() + "件商品，实付额：");

@@ -220,6 +220,8 @@ public class ServerOrderConfirmActivity extends AutoBaseTitleActivity {
                         intent.putExtra("tradeID", result.data.tradeID);
                         intent.putExtra("orderType", Constants.order_type_service);
                         startActivity(intent);
+
+                        finish();
                     }
                 });
     }

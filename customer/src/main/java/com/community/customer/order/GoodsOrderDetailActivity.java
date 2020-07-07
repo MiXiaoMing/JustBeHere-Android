@@ -21,6 +21,7 @@ import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.user.GoodsOrderDetailEntity;
 import com.community.customer.api.user.GoodsOrderEntity;
 import com.community.customer.api.user.UserDataManager;
+import com.community.customer.api.user.input.OrderBody;
 import com.community.customer.common.Constants;
 import com.community.customer.common.ServerConfig;
 import com.community.customer.mine.PayActivity;
@@ -90,19 +91,19 @@ public class GoodsOrderDetailActivity extends AutoBaseTitleActivity {
         tvCancel.setOnClickListener(clickListener);
         tvPay.setOnClickListener(clickListener);
 
-        tvStatus.setText(Constants.convertServerOrderStatus(order.goodsOrder.status));
-        tvStatus.setTextColor(Constants.getServerStatusColor(order.goodsOrder.status));
+        tvStatus.setText(Constants.convertServerOrderStatus(order.order.status));
+        tvStatus.setTextColor(Constants.getServerStatusColor(order.order.status));
         tvContact.setText(order.deliveryAddress.contact);
         tvAddress.setText(order.deliveryAddress.region);
         tvCellphone.setText(order.deliveryAddress.phoneNumber);
-        if (order.goodsOrder.status.equals("05")) {
+        if (order.order.status.equals("05")) {
             llyCancel.setVisibility(View.VISIBLE);
-            tvUpdateTime.setText(order.goodsOrder.updateTime);
-            if (TextUtils.isEmpty(order.goodsOrder.content)) {
+            tvUpdateTime.setText(order.order.updateTime);
+            if (TextUtils.isEmpty(order.order.content)) {
                 tvCancelMessage.setVisibility(View.GONE);
             } else {
                 tvCancelMessage.setVisibility(View.VISIBLE);
-                tvCancelMessage.setText(order.goodsOrder.content);
+                tvCancelMessage.setText(order.order.content);
             }
         } else {
             llyCancel.setVisibility(View.GONE);
@@ -118,17 +119,17 @@ public class GoodsOrderDetailActivity extends AutoBaseTitleActivity {
         }
 
         tvOrderID.setText(order.goodsOrder.id);
-        tvCreateTime.setText(order.goodsOrder.createTime);
+        tvCreateTime.setText(order.order.createTime);
 
         price = order.goodsOrder.price;
-        tradeID = order.goodsOrder.tradeID;
+        tradeID = order.order.tradeID;
 
-        if (order.goodsOrder.status.equals("01")) {
+        if (order.order.status.equals("01")) {
             llyBottom.setVisibility(View.VISIBLE);
 
-            Logger.getLogger().d("倒计时：" + order.goodsOrder.remainTime);
+            Logger.getLogger().d("倒计时：" + order.order.remainTime);
 
-            new CountDownTimer(order.goodsOrder.remainTime, 1000) {
+            new CountDownTimer(order.order.remainTime, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     if (millisUntilFinished > 60 * 1000) {
@@ -314,8 +315,12 @@ public class GoodsOrderDetailActivity extends AutoBaseTitleActivity {
     private void cancelOrder(String content) {
         Logger.getLogger().d("取消订单，更新状态：" + content);
 
-        UserDataManager dataManager = new UserDataManager();
-        dataManager.changeGoodsOrderStatus(orderID, "05", content)
+        OrderBody body = new OrderBody();
+        body.id = orderID;
+        body.status = "05";
+        body.content = content;
+
+        new UserDataManager().changeGoodsOrderStatus(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EmptyEntity>() {

@@ -9,6 +9,7 @@ import com.community.customer.api.user.input.CartBody;
 import com.community.customer.api.user.input.DeliveryAddressBody;
 import com.community.customer.api.user.input.GoodsOrderBody;
 import com.community.customer.api.user.input.LoginBody;
+import com.community.customer.api.user.input.OrderBody;
 import com.community.customer.api.user.input.ServiceOrderBody;
 import com.community.customer.api.user.result.ServerOrderEntity;
 import com.community.customer.api.user.result.ServerOrderListEntity;
@@ -113,6 +114,9 @@ public class UserDataManager {
         body.remind = orderConfirm.remind;
         body.serviceItems = items;
         body.serviceTime = orderConfirm.serverTime;
+        body.totalPrice = orderConfirm.totalPrice;
+        body.discountPrice = orderConfirm.discountPrice;
+        body.payPrice = orderConfirm.payPrice;
 
         return service.addServerOrder(body);
     }
@@ -174,6 +178,7 @@ public class UserDataManager {
         body.deliveryAddressID = orderConfirm.addressid;
         body.goodsItems = items;
         body.remind = orderConfirm.remind;
+        body.price = orderConfirm.price;
 
         return service.addGoodsOrder(body);
     }
@@ -182,8 +187,8 @@ public class UserDataManager {
         return service.getGoodsOrderDetail(RequestBody.create(MediaType.parse("text/plain"), orderID));
     }
 
-    public Observable<EmptyEntity> changeGoodsOrderStatus(String orderID, String orderStatus, String content) {
-        return service.changeGoodsOrderStatus(orderID, orderStatus, content);
+    public Observable<EmptyEntity> changeGoodsOrderStatus(OrderBody body) {
+        return service.changeGoodsOrderStatus(body);
     }
 
     public Observable<GoodsOrderEntity> getGoodsOrderList() {

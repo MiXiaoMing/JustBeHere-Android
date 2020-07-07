@@ -120,7 +120,7 @@ public class ServerOrderListFragment extends BaseFragment {
                         List<ServerOrderListEntity> serverOrders = result.data;
                         ArrayList<ServerOrderListEntity> resultOrders = new ArrayList<>();
                         for (ServerOrderListEntity order : serverOrders) {
-                            if (Constants.convertServerOrderStatus(order.serviceOrder.status).equals(type)) {
+                            if (Constants.convertServerOrderStatus(order.order.status).equals(type)) {
                                 resultOrders.add(order);
                             }
                         }

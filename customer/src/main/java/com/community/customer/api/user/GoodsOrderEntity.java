@@ -2,12 +2,14 @@ package com.community.customer.api.user;
 
 import com.community.customer.api.user.entity.DeliveryAddress;
 import com.community.customer.api.user.entity.GoodsOrder;
+import com.community.customer.api.user.entity.Order;
 import com.community.support.common.BaseArrayResult;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class GoodsOrderEntity extends BaseArrayResult<GoodsOrderEntity> {
+    public Order order;
     public GoodsOrder goodsOrder;
     public DeliveryAddress deliveryAddress;
 

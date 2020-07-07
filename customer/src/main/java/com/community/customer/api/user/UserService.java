@@ -6,6 +6,7 @@ import com.community.customer.api.user.input.CartBody;
 import com.community.customer.api.user.input.DeliveryAddressBody;
 import com.community.customer.api.user.input.GoodsOrderBody;
 import com.community.customer.api.user.input.LoginBody;
+import com.community.customer.api.user.input.OrderBody;
 import com.community.customer.api.user.input.ServiceOrderBody;
 import com.community.customer.api.user.result.ServerOrderEntity;
 import com.community.customer.api.user.result.ServerOrderListEntity;
@@ -116,8 +117,8 @@ public interface UserService {
     Observable<GoodsOrderDetailEntity> getGoodsOrderDetail(@Body RequestBody body);
 
 
-    @POST("user/changeGoodsOrderStatus")
-    Observable<EmptyEntity> changeGoodsOrderStatus(@Field("orderid") String orderid, @Field("orderStatus") String orderStatus, @Field("content") String content);
+    @POST("order/updateGoodsOrderStatus")
+    Observable<EmptyEntity> changeGoodsOrderStatus(@Body OrderBody body);
 
     @POST("order/getAllGoodsOrder")
     Observable<GoodsOrderEntity> getGoodsOrderList();

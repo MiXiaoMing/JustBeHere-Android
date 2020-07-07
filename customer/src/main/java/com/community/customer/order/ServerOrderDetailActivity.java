@@ -97,20 +97,20 @@ public class ServerOrderDetailActivity extends AutoBaseTitleActivity {
         tvPay.setOnClickListener(clickListener);
 
         tvServerName.setText(order.serviceOrder.serviceName);
-        tvStatus.setText(Constants.convertServerOrderStatus(order.serviceOrder.status));
-        tvStatus.setTextColor(Constants.getServerStatusColor(order.serviceOrder.status));
+        tvStatus.setText(Constants.convertServerOrderStatus(order.order.status));
+        tvStatus.setTextColor(Constants.getServerStatusColor(order.order.status));
         tvContact.setText(order.deliveryAddress.contact);
         tvAddress.setText(order.deliveryAddress.region);
         tvCellphone.setText(order.deliveryAddress.phoneNumber);
         tvServerTime.setText(order.serviceOrder.serviceTime);
-        if (order.serviceOrder.status.equals("05")) {
+        if (order.order.status.equals("05")) {
             llyCancel.setVisibility(View.VISIBLE);
-            tvUpdateTime.setText(order.serviceOrder.updateTime);
-            if (TextUtils.isEmpty(order.serviceOrder.content)) {
+            tvUpdateTime.setText(order.order.updateTime);
+            if (TextUtils.isEmpty(order.order.content)) {
                 tvCancelMessage.setVisibility(View.GONE);
             } else {
                 tvCancelMessage.setVisibility(View.VISIBLE);
-                tvCancelMessage.setText(order.serviceOrder.content);
+                tvCancelMessage.setText(order.order.content);
             }
         } else {
             llyCancel.setVisibility(View.GONE);
@@ -131,18 +131,18 @@ public class ServerOrderDetailActivity extends AutoBaseTitleActivity {
         }
 
         tvOrderID.setText(order.serviceOrder.id);
-        tvCreateTime.setText(order.serviceOrder.createTime);
+        tvCreateTime.setText(order.order.createTime);
 
         price = order.serviceOrder.payPrice;
-        tradeID = order.serviceOrder.tradeID;
+        tradeID = order.order.tradeID;
 
-        if (order.serviceOrder.status.equals("01")) {
+        if (order.order.status.equals("01")) {
             llyBottom.setVisibility(View.VISIBLE);
             tvPayPrice.setText("  还需付额：" + order.serviceOrder.payPrice + "元");
 
-            Logger.getLogger().d("倒计时：" + order.serviceOrder.remainTime);
+            Logger.getLogger().d("倒计时：" + order.order.remainTime);
 
-            new CountDownTimer(order.serviceOrder.remainTime, 1000) {
+            new CountDownTimer(order.order.remainTime, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     if (millisUntilFinished > 60 * 1000) {
@@ -159,7 +159,7 @@ public class ServerOrderDetailActivity extends AutoBaseTitleActivity {
                 }
             }.start();
         } else {
-            if (order.serviceOrder.status.equals("05")) {
+            if (order.order.status.equals("05")) {
                 llyBottom.setVisibility(View.GONE);
                 tvPayPrice.setText("  未付金额：" + order.serviceOrder.payPrice + "元");
             } else {
