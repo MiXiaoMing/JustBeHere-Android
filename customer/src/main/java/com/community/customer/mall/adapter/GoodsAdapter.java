@@ -46,16 +46,16 @@ public class GoodsAdapter extends LoadMoreAdapter<GoodsListEntity> {
         if (viewHolder instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) viewHolder;
             GoodsListEntity entity = dataList.get(position);
-            ImageLoader.normal(context, ServerConfig.file_host + entity.icon, R.drawable.default_image_white, holder.ivIcon);
-            holder.tvTitle.setText(entity.title);
-            holder.tvDesc.setText(entity.desc);
-            if (entity.prices != null && entity.prices.size() > 0) {
+            ImageLoader.normal(context, ServerConfig.file_host + entity.goods.icon, R.drawable.default_image_white, holder.ivIcon);
+            holder.tvTitle.setText(entity.goods.title);
+            holder.tvDesc.setText(entity.goods.desc);
+            if (entity.goodsPrices != null && entity.goodsPrices.size() > 0) {
                 holder.tvPrice.setVisibility(View.VISIBLE);
                 holder.tvPrice.setText("¥ " + entity.mixPrice);
             } else {
                 holder.tvPrice.setVisibility(View.GONE);
             }
-            initTags(holder.llyTags, entity.tag);
+            initTags(holder.llyTags, entity.goods.tag);
         }
     }
 
@@ -103,7 +103,7 @@ public class GoodsAdapter extends LoadMoreAdapter<GoodsListEntity> {
                     int position = ViewHolder.this.getAdapterPosition();
                     if (position >= 0) {
                         Intent intent = new Intent(context, GoodsDetailActivity.class);
-                        intent.putExtra("goodsid", dataList.get(position).code);
+                        intent.putExtra("goodsid", dataList.get(position).goods.code);
                         context.startActivity(intent);
                     }
                 }

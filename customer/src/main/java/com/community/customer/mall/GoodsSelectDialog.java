@@ -38,9 +38,7 @@ import com.community.support.utils.UserInfoUtil;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import cn.wdcloud.acaeva.R;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -65,9 +63,9 @@ public class GoodsSelectDialog extends BaseDialog {
 
         goods = (GoodsEntity) getArguments().getSerializable("goods");
         type = getArguments().getString("type", "order");
-        if (goods == null || goods.prices.size() <= 0) {
+        if (goods == null || goods.goodsPrices.size() <= 0) {
             if (goods != null)
-                ReportUtil.reportError("商品数据错误：" + goods.code);
+                ReportUtil.reportError("商品数据错误：" + goods.goods.code);
             dismiss();
         }
 
@@ -92,34 +90,34 @@ public class GoodsSelectDialog extends BaseDialog {
 
         TextView tvSubmit = view.findViewById(R.id.tvSubmit);
 
-        ImageLoader.normal(this.getActivity(), ServerConfig.file_host + goods.icon, R.drawable.default_image_white, ivIcon);
+        ImageLoader.normal(this.getActivity(), ServerConfig.file_host + goods.goods.icon, R.drawable.default_image_white, ivIcon);
         if (goods.mixPrice == goods.maxPrice) {
             tvPrice.setText("¥ " + goods.mixPrice);
         } else {
             tvPrice.setText("¥ " + goods.mixPrice + " - " + goods.maxPrice);
         }
 
-        if (goods.prices.size() <= 1) {
+        if (goods.goodsPrices.size() <= 1) {
             tvSelectType.setText("请选择：数量");
             llyType.setVisibility(View.GONE);
         } else {
             llyType.setVisibility(View.VISIBLE);
             tvSelectType.setText("请选择：规格，数量");
             aflyTypes.setMultiChecked(false);
-            aflyTypes.setAdapter(new FlowAdapter(goods.prices) {
+            aflyTypes.setAdapter(new FlowAdapter(goods.goodsPrices) {
                 @Override
                 public View getView(int position) {
                     TextView textView = new FontTextView(GoodsSelectDialog.this.getActivity());
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, AutoUtils.getPercentHeightSize(27));
                     layoutParams.setMargins(AutoUtils.getPercentWidthSize(20), 0, 0, 0);
-                    if (!TextUtils.isEmpty(selectTypeID) && selectTypeID.equals(goods.prices.get(position).id)) {
+                    if (!TextUtils.isEmpty(selectTypeID) && selectTypeID.equals(goods.goodsPrices.get(position).id)) {
                         textView.setBackgroundResource(R.drawable.shape_stroke_4e_2);
                     } else {
                         textView.setBackgroundResource(R.drawable.shape_rectangle_corner_white_3);
                     }
                     textView.setGravity(Gravity.CENTER);
                     textView.setLayoutParams(layoutParams);
-                    textView.setText(goods.prices.get(position).name);
+                    textView.setText(goods.goodsPrices.get(position).name);
                     textView.setTextColor(Color.parseColor("#3a3a3a"));
                     textView.setTextSize(13);
                     return textView;
@@ -128,8 +126,8 @@ public class GoodsSelectDialog extends BaseDialog {
             aflyTypes.setOnItemClickListener(new AutoFlowLayout.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, View view) {
-                    selectTypeID = goods.prices.get(position).id;
-                    tvPrice.setText("¥ " + goods.prices.get(position).price);
+                    selectTypeID = goods.goodsPrices.get(position).id;
+                    tvPrice.setText("¥ " + goods.goodsPrices.get(position).price);
                 }
             });
         }
@@ -166,7 +164,7 @@ public class GoodsSelectDialog extends BaseDialog {
 
                 case R.id.tvSubmit: {
                     int number = Integer.valueOf(tvNumber.getText().toString().trim());
-                    if (goods.prices.size() > 1 && TextUtils.isEmpty(selectTypeID)) {
+                    if (goods.goodsPrices.size() > 1 && TextUtils.isEmpty(selectTypeID)) {
                         ToastUtil.show(GoodsSelectDialog.this.getActivity(), "请选择商品规格");
                         return;
                     }
@@ -182,8 +180,8 @@ public class GoodsSelectDialog extends BaseDialog {
                         }
 
                         String typeid = "", typeName = "";
-                        if (goods.prices.size() > 1) {
-                            for (GoodsPrice goodsPrice : goods.prices) {
+                        if (goods.goodsPrices.size() > 1) {
+                            for (GoodsPrice goodsPrice : goods.goodsPrices) {
                                 if (goodsPrice.id.equals(selectTypeID)) {
                                     typeid = selectTypeID;
                                     typeName = goodsPrice.name;
@@ -191,24 +189,24 @@ public class GoodsSelectDialog extends BaseDialog {
                                 }
                             }
                         } else {
-                           typeid = goods.prices.get(0).id;
+                           typeid = goods.goodsPrices.get(0).id;
                            typeName = "";
                         }
-                        addCart(goods.code, typeid, typeName, number);
+                        addCart(goods.goods.code, typeid, typeName, number);
                     } else {
                         GoodsOrderConfirm goodsConfirm = new GoodsOrderConfirm();
-                        if (goods.prices.size() > 1) {
-                            for (GoodsPrice goodsPrice : goods.prices) {
+                        if (goods.goodsPrices.size() > 1) {
+                            for (GoodsPrice goodsPrice : goods.goodsPrices) {
                                 if (goodsPrice.id.equals(selectTypeID)) {
-                                    goodsConfirm.addItem(goods.code, goods.title, goods.icon, goodsPrice.id, goodsPrice.name,
+                                    goodsConfirm.addItem(goods.goods.code, goods.goods.title, goods.goods.icon, goodsPrice.id, goodsPrice.name,
                                             goodsPrice.price, number);
                                     goodsConfirm.price = goodsPrice.price * number;
                                 }
                             }
                         } else {
-                            goodsConfirm.addItem(goods.code, goods.title, goods.icon, goods.prices.get(0).id, "",
-                                    goods.prices.get(0).price, number);
-                            goodsConfirm.price = goods.prices.get(0).price * number;
+                            goodsConfirm.addItem(goods.goods.code, goods.goods.title, goods.goods.icon, goods.goodsPrices.get(0).id, "",
+                                    goods.goodsPrices.get(0).price, number);
+                            goodsConfirm.price = goods.goodsPrices.get(0).price * number;
                         }
 
                         Intent intent = new Intent(GoodsSelectDialog.this.getActivity(), GoodsOrderConfirmActivity.class);

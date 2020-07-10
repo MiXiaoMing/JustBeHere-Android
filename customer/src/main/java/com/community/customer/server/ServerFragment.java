@@ -359,8 +359,8 @@ public class ServerFragment extends BaseFragment {
                     icon = units.get(i).goodsClassify.icon;
                     name = units.get(i).goodsClassify.name;
                 } else if (units.get(i).classify.equals(Constants.data_goods)) {
-                    icon = units.get(i).goods.icon;
-                    name = units.get(i).goods.title;
+                    icon = units.get(i).goods.goods.icon;
+                    name = units.get(i).goods.goods.title;
                 } else if (units.get(i).classify.equals(Constants.data_others)) {
                     icon = units.get(i).other.icon;
                     name = units.get(i).other.name;
@@ -414,8 +414,8 @@ public class ServerFragment extends BaseFragment {
                         icon = units.get(i).goodsClassify.icon;
                         name = units.get(i).goodsClassify.name;
                     } else if (units.get(i).classify.equals(Constants.data_goods)) {
-                        icon = units.get(i).goods.icon;
-                        name = units.get(i).goods.title;
+                        icon = units.get(i).goods.goods.icon;
+                        name = units.get(i).goods.goods.title;
                     } else if (units.get(i).classify.equals(Constants.data_others)) {
                         icon = units.get(i).other.icon;
                         name = units.get(i).other.name;

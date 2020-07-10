@@ -27,7 +27,6 @@ import com.community.customer.mine.ShoppingCartActivity;
 import com.community.support.AutoBaseTitleActivity;
 import com.community.support.component.FontTextView;
 import com.community.support.utils.GlideImageLoader;
-import com.community.support.utils.ReportUtil;
 import com.community.support.utils.UserInfoUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,9 +40,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cn.wdcloud.acaeva.R;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -80,15 +77,15 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
         TextView tvPrice = findViewById(R.id.tvPrice);
         LinearLayout llyContent = findViewById(R.id.llyContent);
 
-        tvTitle.setText(goods.title);
-        tvDesc.setText(goods.desc);
+        tvTitle.setText(goods.goods.title);
+        tvDesc.setText(goods.goods.desc);
         if (goods.mixPrice == goods.maxPrice) {
             tvPrice.setText("¥ " + goods.mixPrice);
         } else {
             tvPrice.setText("¥ " + goods.mixPrice + " - " + goods.maxPrice);
         }
-        initTags(llyTags, goods.tag);
-        initContent(llyContent, goods.content);
+        initTags(llyTags, goods.goods.tag);
+        initContent(llyContent, goods.goods.content);
     }
 
     private void initTags(LinearLayout root, String tagsStr) {
@@ -228,16 +225,16 @@ public class GoodsDetailActivity extends AutoBaseTitleActivity {
                     public void onSuccess(GoodsEntity result) {
                         goods = result.data;
 
-                        for (int i = 0; i < goods.prices.size(); ++i) {
+                        for (int i = 0; i < goods.goodsPrices.size(); ++i) {
                             if (i == 0) {
-                                goods.mixPrice = goods.prices.get(0).price;
-                                goods.maxPrice = goods.prices.get(0).price;
+                                goods.mixPrice = goods.goodsPrices.get(0).price;
+                                goods.maxPrice = goods.goodsPrices.get(0).price;
                             } else {
-                                if (goods.mixPrice > goods.prices.get(i).price) {
-                                    goods.mixPrice = goods.prices.get(i).price;
+                                if (goods.mixPrice > goods.goodsPrices.get(i).price) {
+                                    goods.mixPrice = goods.goodsPrices.get(i).price;
                                 }
-                                if (goods.maxPrice < goods.prices.get(i).price) {
-                                    goods.maxPrice = goods.prices.get(i).price;
+                                if (goods.maxPrice < goods.goodsPrices.get(i).price) {
+                                    goods.maxPrice = goods.goodsPrices.get(i).price;
                                 }
                             }
                         }
