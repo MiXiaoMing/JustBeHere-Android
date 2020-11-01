@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class CartListEntity extends BaseArrayResult<CartListEntity> {
     public Goods goods;
-    public GoodsPrice price;
+    public ArrayList<GoodsPrice> goodsPrices;
     public Cart cart;
 
     public boolean isSelect = false;

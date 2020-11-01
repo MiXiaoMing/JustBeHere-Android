@@ -56,6 +56,16 @@
                 tools:src="@drawable/icon_app"
                 android:background="@color/white"/>
 
+            <com.community.support.component.FontTextView
+                android:layout_marginTop="200dp"
+                android:id="@+id/tvEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="28sp"
+                android:text="敬请期待"
+                android:textColor="@color/gray"/>
+
         </LinearLayout>
 
     </ScrollView>

@@ -128,6 +128,10 @@ public class ServerCommonView {
                 Intent intent = new Intent(activity, Class.forName(Constants.activity_service_detail));
                 intent.putExtra("code", code);
                 activity.startActivity(intent);
+            }  else if (classify.equals(Constants.data_goods)) {
+                Intent intent = new Intent(activity, Class.forName(Constants.activity_goods_detail));
+                intent.putExtra("goodsid", code);
+                activity.startActivity(intent);
             } else {
                 ToastUtil.show(activity, "数据错误：" + classify);
             }

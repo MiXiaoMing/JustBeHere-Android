@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.appframe.utils.logger.Logger;
 import com.community.customer.api.CustomObserver;
+import com.community.customer.api.mall.GoodsPrice;
 import com.community.customer.api.user.CartListEntity;
 import com.community.customer.api.user.GoodsOrderConfirm;
 import com.community.customer.api.user.UserDataManager;
@@ -137,8 +138,8 @@ public class ShoppingCartActivity extends AutoBaseTitleActivity {
 
                         ArrayList<CartListEntity> carts = cartAdapter.getAll();
                         for (CartListEntity cart : carts) {
-                            goodsConfirm.addItem(cart.goods.code, cart.goods.title, cart.goods.icon, cart.cart.typeID, cart.cart.typeName, cart.price.price, cart.cart.number);
-                            goodsConfirm.price += cart.price.price * cart.cart.number;
+                            goodsConfirm.addItem(cart.goods.code, cart.goods.title, cart.goods.icon, cart.cart.typeID, cart.cart.typeName, getTypePrice(cart.cart.typeID, cart.goodsPrices), cart.cart.number);
+                            goodsConfirm.price += getTypePrice(cart.cart.typeID, cart.goodsPrices) * cart.cart.number;
                         }
 
                         Intent intent = new Intent(ShoppingCartActivity.this, GoodsOrderConfirmActivity.class);
@@ -171,5 +172,16 @@ public class ShoppingCartActivity extends AutoBaseTitleActivity {
                         cartAdapter.addAll(result.data);
                     }
                 });
+    }
+
+    private float getTypePrice(String typeID, ArrayList<GoodsPrice> goodsPrices) {
+        float result = 0;
+        for (int i = 0; i < goodsPrices.size(); ++i) {
+            if (goodsPrices.get(i).id.equals(typeID)) {
+                result = goodsPrices.get(i).price;
+            }
+        }
+
+        return result;
     }
 }

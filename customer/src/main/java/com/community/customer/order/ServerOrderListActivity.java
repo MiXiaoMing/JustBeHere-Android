@@ -1,14 +1,18 @@
 package com.community.customer.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.community.customer.common.Constants;
+import com.community.customer.mine.PayActivity;
 import com.community.support.AutoBaseTitleActivity;
 
 import java.util.ArrayList;
@@ -105,5 +109,20 @@ public class ServerOrderListActivity extends AutoBaseTitleActivity {
 
         tabs.setupWithViewPager(vpContent);
 
+        LinearLayout llyBack = findViewById(R.id.llyBack);
+
+
+        llyBack.setOnClickListener(clickListener);
     }
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.llyBack:
+                    finish();
+                    break;
+            }
+        }
+    };
 }

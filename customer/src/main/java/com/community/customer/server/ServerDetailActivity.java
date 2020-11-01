@@ -44,6 +44,9 @@ public class ServerDetailActivity extends AutoBaseTitleActivity {
 
         setContentView(R.layout.activity_server_detail);
 
+        LinearLayout llyBack = findViewById(R.id.llyBack);
+        llyBack.setOnClickListener(clickListener);
+
         initData();
     }
 
@@ -100,9 +103,6 @@ public class ServerDetailActivity extends AutoBaseTitleActivity {
     private void initView() {
         TextView tvTitle = findViewById(R.id.tvTitle);
         tvTitle.setText(server.name);
-
-        LinearLayout llyBack = findViewById(R.id.llyBack);
-        llyBack.setOnClickListener(clickListener);
 
         ImageView ivCover = findViewById(R.id.ivCover);
         if (TextUtils.isEmpty(server.cover)) {

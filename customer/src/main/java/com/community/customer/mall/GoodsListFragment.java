@@ -125,7 +125,7 @@ public class GoodsListFragment extends BaseFragment {
         GoodsListBody body = new GoodsListBody();
         body.classify = classify;
         body.page = page;
-        body.number = 20;
+        body.number = 100;
 
         new MallDataManager().getGoodsList(body)
                 .subscribeOn(Schedulers.io())

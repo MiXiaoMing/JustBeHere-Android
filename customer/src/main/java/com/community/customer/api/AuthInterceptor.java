@@ -28,6 +28,7 @@ public class AuthInterceptor implements Interceptor {
 
         if (response.code() == HttpStatus.SC_UNAUTHORIZED) {
             Logger.getLogger().e("401，重新登录");
+            AuthUtil.saveAuth("");
             AppRuntimeUtil.getInstance().getCurrentActivity().startActivity(
                     new Intent(AppRuntimeUtil.getInstance().getCurrentActivity(), LoginActivity.class));
         }

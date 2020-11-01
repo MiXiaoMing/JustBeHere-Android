@@ -29,6 +29,7 @@ public class Constants {
     //数据分类对应页面
     public static final String activity_service_classify = "com.community.customer.server.ServerClassifyActivity";
     public static final String activity_service_detail = "com.community.customer.server.ServerDetailActivity";
+    public static final String activity_goods_detail = "com.community.customer.mall.GoodsDetailActivity";
 
     public static final String activity_deposit = "com.community.customer.mine.DepositActivity";
 

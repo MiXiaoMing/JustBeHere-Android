@@ -46,8 +46,6 @@ public abstract class CustomObserver<T extends Result> implements Observer<T> {
                 if (ActivityUtil.isAvailable(AppRuntimeUtil.getInstance().getCurrentActivity())) {
                     if (!TextUtils.isEmpty(result.message))
                         AFToast.showShort(AppRuntimeUtil.getInstance().getCurrentActivity(), result.message);
-                    else
-                        AFToast.showShort(AppRuntimeUtil.getInstance().getCurrentActivity(), R.string.connect_failure);
                 }
                 onError(result.message);
             }
@@ -65,14 +63,11 @@ public abstract class CustomObserver<T extends Result> implements Observer<T> {
             if (e.toString().equals("com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_ARRAY but was STRING at line 1 column 76 path $.data")) {
 
             } else {
-                if (NetUtil.isConnect(AppRuntimeUtil.getInstance().getCurrentActivity())){
-                    AFToast.showShort(AppRuntimeUtil.getInstance().getCurrentActivity(), R.string.connect_failure);
-                }else {
+                if (!NetUtil.isConnect(AppRuntimeUtil.getInstance().getCurrentActivity())) {
                     AFToast.showShort(AppRuntimeUtil.getInstance().getCurrentActivity(), R.string.network_failed);
                 }
             }
         }
-        Logger.getLogger().e("请求错误：" + e.toString());
         ReportUtil.reportError(e);
         onError(e.toString());
     }

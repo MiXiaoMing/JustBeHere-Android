@@ -36,6 +36,9 @@ public class ServerClassifyActivity extends AutoBaseTitleActivity {
 
         setContentView(R.layout.activity_server_classify);
 
+        LinearLayout llyBack = findViewById(R.id.llyBack);
+        llyBack.setOnClickListener(clickListener);
+
         initData();
     }
 
@@ -73,11 +76,11 @@ public class ServerClassifyActivity extends AutoBaseTitleActivity {
     private void initView() {
         LinearLayout llyRoot = findViewById(R.id.llyRoot);
 
+        TextView tvEmpty = findViewById(R.id.tvEmpty);
+        tvEmpty.setVisibility(View.GONE);
+
         TextView tvTitle = findViewById(R.id.tvTitle);
         tvTitle.setText(serverClassify.name);
-
-        LinearLayout llyBack = findViewById(R.id.llyBack);
-        llyBack.setOnClickListener(clickListener);
 
         ImageView ivCover = findViewById(R.id.ivCover);
         ImageLoader.normal(this, ServerConfig.file_host + serverClassify.image, R.drawable.default_image_white, ivCover);

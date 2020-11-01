@@ -74,6 +74,10 @@ android {
     packagingOptions {
         exclude 'META-INF/INDEX.LIST'
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 configurations.all {

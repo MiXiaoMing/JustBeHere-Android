@@ -10,12 +10,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.appframe.utils.logger.Logger;
+import com.community.customer.LoginActivity;
 import com.community.customer.api.CustomObserver;
 import com.community.customer.api.user.GoodsOrderEntity;
 import com.community.customer.api.user.UserDataManager;
 import com.community.customer.common.Constants;
 import com.community.customer.order.adapter.GoodsOrderAdapter;
 import com.community.support.BaseFragment;
+import com.community.support.utils.UserInfoUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +50,19 @@ public class GoodsOrderListFragment extends BaseFragment {
                 tvMore.setOnClickListener(clickListener);
                 tvMore.setVisibility(View.VISIBLE);
 
-                getUndoneGoodsOrderList();
+                if (UserInfoUtil.isLogin()) {
+                    getUndoneGoodsOrderList();
+                } else {
+                    startActivity(new Intent(this.getContext(), LoginActivity.class));
+                }
             } else {
                 tvMore.setVisibility(View.GONE);
 
-                getServerOrderList();
+                if (UserInfoUtil.isLogin()) {
+                    getServerOrderList();
+                } else {
+                    startActivity(new Intent(this.getContext(), LoginActivity.class));
+                }
             }
         }
         ViewGroup parent = (ViewGroup) view.getParent();

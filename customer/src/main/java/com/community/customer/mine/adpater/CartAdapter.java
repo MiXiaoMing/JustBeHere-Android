@@ -12,23 +12,19 @@ import android.widget.TextView;
 import com.appframe.library.component.image.ImageLoader;
 import com.appframe.utils.logger.Logger;
 import com.community.customer.api.CustomObserver;
-import com.community.customer.api.EmptyEntity;
+import com.community.customer.api.mall.GoodsPrice;
 import com.community.customer.api.user.CartListEntity;
-import com.community.customer.api.user.CountEntity;
 import com.community.customer.api.user.UserDataManager;
 import com.community.customer.api.user.entity.Cart;
 import com.community.customer.api.user.input.CartBody;
 import com.community.customer.common.ServerConfig;
 import com.community.customer.mine.ShoppingCartActivity;
-import com.community.support.utils.ReportUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import cn.wdcloud.acaeva.R;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -77,6 +73,10 @@ public class CartAdapter extends BaseAdapter {
 
         final CartListEntity cart = entities.get(position);
 
+        if (cart.goods == null || cart.cart == null) {
+            return convertView;
+        }
+
         ImageLoader.normal(activity, ServerConfig.file_host + cart.goods.icon, R.drawable.default_image_white, viewHolder.ivIcon);
         viewHolder.tvTitle.setText(cart.goods.title);
         if (TextUtils.isEmpty(cart.cart.typeName)) {
@@ -85,7 +85,7 @@ public class CartAdapter extends BaseAdapter {
             viewHolder.tvTypeName.setVisibility(View.VISIBLE);
             viewHolder.tvTypeName.setText(cart.cart.typeName);
         }
-        viewHolder.tvPrice.setText("¥ " + cart.price.price);
+        viewHolder.tvPrice.setText("¥ " + getTypePrice(cart.cart.typeID, cart.goodsPrices));
         viewHolder.tvNumber.setText(cart.cart.number + "");
 
         if (cart.isSelect) {
@@ -192,7 +192,7 @@ public class CartAdapter extends BaseAdapter {
                 isAllSelect = false;
             } else {
                 selectCount += 1;
-                price += cart.price.price * cart.cart.number;
+                price += getTypePrice(cart.cart.typeID, cart.goodsPrices) * cart.cart.number;
             }
         }
         activity.notifyCount(isAllSelect, selectCount, price);
@@ -246,5 +246,16 @@ public class CartAdapter extends BaseAdapter {
 
                     }
                 });
+    }
+
+    private float getTypePrice(String typeID, ArrayList<GoodsPrice> goodsPrices) {
+        float result = 0;
+        for (int i = 0; i < goodsPrices.size(); ++i) {
+            if (goodsPrices.get(i).id.equals(typeID)) {
+                result = goodsPrices.get(i).price;
+            }
+        }
+
+        return result;
     }
 }
