@@ -17,7 +17,7 @@ import com.appframe.utils.logger.Logger;
 import com.community.customer.common.ServerConfig;
 import com.community.customer.api.servers.Server;
 import com.community.customer.api.servers.ServerClassify;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.support.component.FontTextView;
 import com.community.support.utils.BgUtil;
 import com.community.support.utils.ToastUtil;

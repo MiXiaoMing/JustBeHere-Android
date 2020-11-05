@@ -1,6 +1,5 @@
 package com.community.customer.order;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,8 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.community.customer.common.Constants;
-import com.community.customer.mine.PayActivity;
+import com.community.support.common.Constants;
 import com.community.support.AutoBaseTitleActivity;
 
 import java.util.ArrayList;

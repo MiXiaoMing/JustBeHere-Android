@@ -18,7 +18,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.user.UserDataManager;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.customer.mall.MallFragment;
 import com.community.customer.mine.MineFragment;
 import com.community.customer.order.OrderFragment;
@@ -29,8 +29,6 @@ import com.community.support.utils.PushUtil;
 import com.community.support.utils.ReportUtil;
 import com.community.support.utils.ToastUtil;
 import com.taobao.sophix.SophixManager;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;

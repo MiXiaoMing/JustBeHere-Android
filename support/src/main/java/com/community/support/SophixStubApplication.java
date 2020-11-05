@@ -14,7 +14,7 @@ import com.taobao.sophix.listener.PatchLoadStatusListener;
 public class SophixStubApplication extends SophixApplication {
 
     @Keep
-    @SophixEntry(AFMultiDexApplication.class)
+    @SophixEntry(QXApplication.class)
     static class RealApplicationStub {
     }
 

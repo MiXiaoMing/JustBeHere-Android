@@ -1,5 +1,6 @@
 package com.community.customer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.community.customer.api.CustomObserver;
 import com.community.customer.api.user.LoginEntity;
 import com.community.customer.api.user.UserDataManager;
 import com.community.customer.api.user.input.LoginBody;
+import com.community.customer.other.AgreementActivity;
 import com.community.support.AutoBaseTitleActivity;
 import com.community.support.common.StringResult;
 import com.community.support.common.UserInfo;
@@ -56,6 +58,9 @@ public class LoginActivity extends AutoBaseTitleActivity {
 
         tvSmsCode = findViewById(R.id.tvSmsCode);
         TextView tvLogin = findViewById(R.id.tvLogin);
+
+        findViewById(R.id.tvUserAgree).setOnClickListener(clickListener);
+        findViewById(R.id.tvPrivacy).setOnClickListener(clickListener);
 
         llyBack.setOnClickListener(clickListener);
         tvSmsCode.setOnClickListener(clickListener);
@@ -207,9 +212,24 @@ public class LoginActivity extends AutoBaseTitleActivity {
                 case R.id.tvLogin:
                     login();
                     break;
-            }
+
+                case R.id.tvUserAgree: {
+                    Intent intent = new Intent(LoginActivity.this, AgreementActivity.class);
+                    intent.putExtra("title", "用户协议与免责条款");
+                    intent.putExtra("url", "https://otherh5.ycaiyun.com/xieyi/xy-1.html\n");
+                    startActivity(intent);
+                }
+                    break;
+
+                case R.id.tvPrivacy: {
+                    Intent intent = new Intent(LoginActivity.this, AgreementActivity.class);
+                    intent.putExtra("title", "隐私政策");
+                    intent.putExtra("url", "https://otherh5.ycaiyun.com/xieyi/xy-2.html");
+                    startActivity(intent);
+                }
+                    break;
         }
-    };
+    }};
 
     private CountDownTimer countDownTimer = new CountDownTimer(60 * 1000, 1000) {
         @Override

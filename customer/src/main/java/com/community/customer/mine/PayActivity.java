@@ -14,20 +14,25 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.appframe.library.network.http.AFHttpClient;
 import com.appframe.utils.logger.Logger;
 import com.community.customer.LoginActivity;
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.user.FloatEntity;
 import com.community.customer.api.user.UserDataManager;
 import com.community.customer.api.user.input.ServiceOrderBody;
-import com.community.customer.common.Constants;
+import com.community.customer.common.ServerConfig;
+import com.community.support.common.Constants;
 import com.community.customer.event.PayEvent;
 import com.community.customer.order.GoodsOrderDetailActivity;
 import com.community.customer.order.ServerOrderDetailActivity;
 import com.community.support.AutoBaseTitleActivity;
+import com.community.support.utils.DeviceInfo;
+import com.community.support.utils.PayCommonUtil;
 import com.community.support.utils.ReportUtil;
 import com.community.support.utils.ToastUtil;
 import com.community.support.utils.UserInfoUtil;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -44,16 +49,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import cn.wdcloud.acaeva.R;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PayActivity extends AutoBaseTitleActivity {
     private float price;
@@ -75,12 +89,11 @@ public class PayActivity extends AutoBaseTitleActivity {
         tradeID = getIntent().getStringExtra("tradeID");
         orderType = getIntent().getStringExtra("orderType");
 
-        // TODO: 2020/6/23 不应该注释掉
-//        if (price == 0) {
-//            ReportUtil.reportError("支付金额为 0");
-//            finish();
-//            return;
-//        }
+        if (price == 0) {
+            ReportUtil.reportError("支付金额为 0");
+            finish();
+            return;
+        }
         if (TextUtils.isEmpty(orderID) || TextUtils.isEmpty(tradeID) || TextUtils.isEmpty(orderType)) {
             ReportUtil.reportError("orderID || tradeID || orderType为空");
             finish();
@@ -269,130 +282,127 @@ public class PayActivity extends AutoBaseTitleActivity {
     }
 
     private void unifiedOrder() {
-//        final String body, detail;
-//        final String payFee = String.valueOf(price);
-//        if (orderType.equals(Constants.order_type_server)) {
-//            body = "倾心-服务订单";
-//            detail = "服务";
-//        } else {
-//            body = "倾心-商品订单";
-//            detail = "商品";
-//        }
-        final String body = "伟东测评-100灵石";
-        final String payFee = "0.01";
-        final String detail = "100灵石";
+        final String body, detail;
+        final String payFee = String.valueOf(price);
+        if (orderType.equals(Constants.order_type_service)) {
+            body = "服务订单";
+            detail = "服务";
+        } else {
+            body = "商品订单";
+            detail = "商品";
+        }
+//        final String body = "伟东测评-100灵石";
+//        final String payFee = "0.01";
+//        final String detail = "100灵石";
 
-        // TODO: 2020/5/22 不应该注释
-//        Observable.create(new Observable.OnSubscribe<String>() {
-//            @Override
-//            public void call(Subscriber<? super String> subscriber) {
-//                String url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-//
-//                SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
-//                String currTime = PayCommonUtil.getCurrTime();
-//                String strTime = currTime.substring(8, currTime.length());
-//                String strRandom = PayCommonUtil.buildRandom(4) + "";
-//                String nonce_str = strTime + strRandom;
-//                packageParams.put("appid", Constants.wx_app_id);// 公众账号ID
-//                packageParams.put("mch_id", Constants.wx_mch_id);// 商户号
-//                packageParams.put("nonce_str", nonce_str);// 随机字符串
-//                packageParams.put("body", body); //商品描述
-//                packageParams.put("detail", detail);
-//                packageParams.put("out_trade_no", tradeID); //商户订单号
-//                packageParams.put("total_fee", String.valueOf((int) (Float.valueOf(payFee) * 100)));
-//                packageParams.put("spbill_create_ip", DeviceInfo.getIp());
-//                if (orderType.equals(Constants.order_type_server)) {
-//                    packageParams.put("notify_url", ServerConfig.getInstance().getServerUrl("MobileServer") + "/user/wxpay/wxPayNotify/server");
-//                } else {
-//                    packageParams.put("notify_url", ServerConfig.getInstance().getServerUrl("MobileServer") + "/user/wxpay/wxPayNotify/goods");
-//                }
-//                packageParams.put("trade_type", "APP");
-//                String sign = PayCommonUtil.createSign("UTF-8", packageParams, Constants.wx_api_key);
-//                packageParams.put("sign", sign);
-//
-//                String requestXML = PayCommonUtil.getRequestXml(packageParams);
-//                RequestBody requestBody = RequestBody.create(MediaType.parse("application/xml"), requestXML);
-//                Request request = new Request.Builder().url(url).post(requestBody).build();
-//                try {
-//                    Response response = AFHttpClient.getHttpClientSpecify().newCall(request).execute();
-//                    String responseStr = response.body().string();
-//                    subscriber.onNext(responseStr);
-//                    subscriber.onCompleted();
-//                } catch (IOException e) {
-//                    ReportUtil.reportError(e);
-//                    Logger.getLogger().e("请求支付失败:" + e.toString());
-//                    ToastUtil.show(PayActivity.this, "支付失败，请稍后重试！");
-//                }
-//            }
-//        }).subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<String>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        Logger.getLogger().e("支付失败：" + throwable.getMessage());
-//                        ReportUtil.reportError(throwable);
-//                        ToastUtil.show(PayActivity.this, "支付失败，请稍后重试！");
-//                    }
-//
-//                    @Override
-//                    public void onNext(String json) {
-//                        Logger.getLogger().d("支付返回结果:" + json);
-//                        HashMap<String, String> map = doXMLParse(json);
-//                        if (map == null) {
-//                            ReportUtil.reportError("支付失败，map == null");
-//                            ToastUtil.show(PayActivity.this, "支付失败，请稍后重试！");
-//                            return;
-//                        }
-//
-//                        if (map.get("return_code").equalsIgnoreCase("FAIL")) {
-//                            Logger.getLogger().e("支付失败：" + map.get("return_msg"));
-//                            ReportUtil.reportError("支付失败：" + map.get("return_msg"));
-//                            ToastUtil.show(PayActivity.this, "支付失败，请稍后重试！");
-//                            return;
-//                        }
-//
-//                        if (map.get("result_code").equalsIgnoreCase("FAIL")) {
-//                            Logger.getLogger().e("支付失败：" + map.get("err_code") + "..." + map.get("err_code_des"));
-//                            ReportUtil.reportError("支付失败：" + map.get("err_code") + "..." + map.get("err_code_des"));
-//                            ToastUtil.show(PayActivity.this, "支付失败，请稍后重试！");
-//                            return;
-//                        }
-//
-//                        //开始支付
-//                        String prepayID = map.get("prepay_id");
-//
-//                        SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
-//                        String currTime = PayCommonUtil.getCurrTime();
-//                        String strTime = currTime.substring(8, currTime.length());
-//                        String strRandom = PayCommonUtil.buildRandom(4) + "";
-//                        String nonce_str = strTime + strRandom;
-//                        packageParams.put("appid", Constants.wx_app_id);// 公众账号ID
-//                        packageParams.put("partnerid",Constants.wx_mch_id);// 商户号
-//                        packageParams.put("prepayid", prepayID);
-//                        packageParams.put("noncestr", nonce_str);
-//                        String timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
-//                        packageParams.put("timestamp", timeStamp);
-//                        packageParams.put("package", "Sign=WXPay");
-//
-//                        String sign = PayCommonUtil.createSign("UTF-8", packageParams, Constants.wx_api_key);
-//                        packageParams.put("sign", sign);
-//
-//                        final PayReq request = new PayReq();
-//                        request.appId = Constants.wx_app_id;
-//                        request.partnerId = Constants.wx_mch_id;
-//                        request.prepayId = prepayID;
-//                        request.packageValue = "Sign=WXPay";
-//                        request.nonceStr = nonce_str;
-//                        request.timeStamp = timeStamp;
-//                        request.sign = sign;
-//                        wxapi.sendReq(request);
-//                    }
-//                });
+        Observable.create(new ObservableOnSubscribe<String>() {
+
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                String url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+
+                SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
+                String currTime = PayCommonUtil.getCurrTime();
+                String strTime = currTime.substring(8, currTime.length());
+                String strRandom = PayCommonUtil.buildRandom(4) + "";
+                String nonce_str = strTime + strRandom;
+                packageParams.put("appid", Constants.wx_app_id);// 公众账号ID
+                packageParams.put("mch_id", Constants.wx_mch_id);// 商户号
+                packageParams.put("nonce_str", nonce_str);// 随机字符串
+                packageParams.put("body", body); //商品描述
+                packageParams.put("detail", detail);
+                packageParams.put("out_trade_no", tradeID); //商户订单号
+                packageParams.put("total_fee", String.valueOf((int) (Float.valueOf(payFee) * 100)));
+                packageParams.put("spbill_create_ip", DeviceInfo.getIp());
+                if (orderType.equals(Constants.order_type_service)) {
+                    packageParams.put("notify_url", ServerConfig.host + "/user/wxpay/wxPayNotify/server");
+                } else {
+                    packageParams.put("notify_url", ServerConfig.host + "/user/wxpay/wxPayNotify/goods");
+                }
+                packageParams.put("trade_type", "APP");
+                String sign = PayCommonUtil.createSign("UTF-8", packageParams, Constants.wx_api_key);
+                packageParams.put("sign", sign);
+
+                String requestXML = PayCommonUtil.getRequestXml(packageParams);
+                RequestBody requestBody = RequestBody.create(MediaType.parse("application/xml"), requestXML);
+                Request request = new Request.Builder().url(url).post(requestBody).build();
+                try {
+                    Response response = AFHttpClient.getInstance().newCall(request).execute();
+                    String responseStr = response.body().string();
+                    emitter.onNext(responseStr);
+                    emitter.onComplete();
+                } catch (IOException e) {
+                    ReportUtil.reportError(e);
+                    Logger.getLogger().e("请求支付失败:" + e.toString());
+                    ToastUtil.show(PayActivity.this, "支付失败，请稍后重试！");
+                }
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
+
+            public void onSubscribe(Disposable d) {
+            }
+
+            public void onNext(String responseStr) {
+                Logger.getLogger().d("支付返回结果:" + responseStr);
+                HashMap<String, String> map = doXMLParse(responseStr);
+                if (map == null) {
+                    ReportUtil.reportError("支付失败，map == null");
+                    ToastUtil.show(PayActivity.this, "支付失败，请稍后重试！");
+                    return;
+                }
+
+                if (map.get("return_code").equalsIgnoreCase("FAIL")) {
+                    Logger.getLogger().e("支付失败：" + map.get("return_msg"));
+                    ReportUtil.reportError("支付失败：" + map.get("return_msg"));
+                    ToastUtil.show(PayActivity.this, "支付失败，请稍后重试！");
+                    return;
+                }
+
+                if (map.get("result_code").equalsIgnoreCase("FAIL")) {
+                    Logger.getLogger().e("支付失败：" + map.get("err_code") + "..." + map.get("err_code_des"));
+                    ReportUtil.reportError("支付失败：" + map.get("err_code") + "..." + map.get("err_code_des"));
+                    ToastUtil.show(PayActivity.this, "支付失败，请稍后重试！");
+                    return;
+                }
+
+                //开始支付
+                String prepayID = map.get("prepay_id");
+
+                SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
+                String currTime = PayCommonUtil.getCurrTime();
+                String strTime = currTime.substring(8, currTime.length());
+                String strRandom = PayCommonUtil.buildRandom(4) + "";
+                String nonce_str = strTime + strRandom;
+                packageParams.put("appid", Constants.wx_app_id);// 公众账号ID
+                packageParams.put("partnerid", Constants.wx_mch_id);// 商户号
+                packageParams.put("prepayid", prepayID);
+                packageParams.put("noncestr", nonce_str);
+                String timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
+                packageParams.put("timestamp", timeStamp);
+                packageParams.put("package", "Sign=WXPay");
+
+                String sign = PayCommonUtil.createSign("UTF-8", packageParams, Constants.wx_api_key);
+                packageParams.put("sign", sign);
+
+                final PayReq request = new PayReq();
+                request.appId = Constants.wx_app_id;
+                request.partnerId = Constants.wx_mch_id;
+                request.prepayId = prepayID;
+                request.packageValue = "Sign=WXPay";
+                request.nonceStr = nonce_str;
+                request.timeStamp = timeStamp;
+                request.sign = sign;
+                wxapi.sendReq(request);
+            }
+
+            public void onError(Throwable e) {
+
+            }
+
+            public void onComplete() {
+            }
+        });
+
     }
 
     private HashMap<String, String> doXMLParse(String strxml) {

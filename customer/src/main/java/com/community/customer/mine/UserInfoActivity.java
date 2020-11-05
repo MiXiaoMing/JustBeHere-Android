@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.appframe.utils.logger.Logger;
 import com.community.customer.api.EmptyEntity;
 import com.community.customer.api.user.UserDataManager;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.support.AutoBaseTitleActivity;
 import com.community.support.utils.ReportUtil;
 import com.community.support.utils.UserInfoUtil;

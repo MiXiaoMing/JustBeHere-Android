@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.community.customer.LoginActivity;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.support.BaseFragment;
 import com.community.support.utils.AuthUtil;
 import com.community.support.utils.UserInfoUtil;

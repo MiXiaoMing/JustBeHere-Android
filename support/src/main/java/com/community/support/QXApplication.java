@@ -1,4 +1,4 @@
-package com.community.customer;
+package com.community.support;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -8,7 +8,7 @@ import com.appframe.framework.config.MetaDataConfig;
 import com.appframe.library.application.AFApplication;
 import com.appframe.library.application.AFMultiDexApplication;
 import com.appframe.utils.logger.Logger;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.support.component.IntentService;
 import com.community.support.component.PushService;
 import com.igexin.sdk.PushManager;

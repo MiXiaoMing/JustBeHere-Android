@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.appframe.library.component.image.ImageLoader;
 import com.community.customer.api.mall.GoodsListEntity;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.customer.common.ServerConfig;
 import com.community.customer.mall.GoodsDetailActivity;
 import com.community.support.component.FontTextView;

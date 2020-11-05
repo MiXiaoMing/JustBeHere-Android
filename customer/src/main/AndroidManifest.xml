@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="cn.wdcloud.acaeva">
+    package="APP_PACKAGE_NAME">
 
     <application
         android:allowBackup="true"
@@ -143,6 +143,11 @@
 
         <activity
             android:name="com.community.customer.other.RecoveryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.community.customer.other.AgreementActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 

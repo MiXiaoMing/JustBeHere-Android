@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.appframe.utils.logger.Logger;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.customer.event.PayEvent;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;

@@ -18,7 +18,7 @@ import com.community.customer.api.servers.ServerPrice;
 import com.community.customer.api.user.AddOrderEntity;
 import com.community.customer.api.user.ServerOrderConfirm;
 import com.community.customer.api.user.UserDataManager;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.customer.event.PayEvent;
 import com.community.customer.mine.DepositActivity;
 import com.community.customer.mine.PayActivity;

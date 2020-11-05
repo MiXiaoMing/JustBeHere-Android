@@ -12,7 +12,7 @@ import android.widget.TextView;
 import cn.wdcloud.acaeva.R;
 
 import com.community.customer.api.user.result.ServerOrderListEntity;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.customer.order.ServerOrderDetailActivity;
 
 import java.util.ArrayList;

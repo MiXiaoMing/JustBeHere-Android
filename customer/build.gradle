@@ -5,8 +5,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-//        applicationId "com.community.customer"
-        applicationId "cn.wdcloud.acaeva"
+        applicationId APP_PACKAGE_NAME
+//        applicationId "cn.wdcloud.acaeva"
         minSdkVersion 18
         targetSdkVersion 27
         versionCode 100
@@ -19,10 +19,12 @@ android {
                 GETUI_APP_KEY   : "V9deXLBBNS7PksvtDfQ398",
                 GETUI_APP_SECRET: "NOj4vx3pRGAHhI5oKAzOg"
         ]
+
+        flavorDimensions "versionCode"
     }
 
     signingConfigs {
-        debug {
+        release {
             File propFile = file('../signing.properties');
             if (propFile.exists()) {
                 def Properties props = new Properties()
@@ -37,7 +39,7 @@ android {
             }
         }
 
-        release {
+        jbh {
             File propFile = file('../signing.properties');
             if (propFile.exists()) {
                 def Properties props = new Properties()
@@ -56,20 +58,26 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+
+            resValue "string", "APP_PACKAGE_NAME", "\"${APP_PACKAGE_NAME}\""
         }
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+
+            resValue "string", "APP_PACKAGE_NAME", "\"${APP_PACKAGE_NAME}\""
+        }
+
+        jbh {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.jbh
+
+            resValue "string", "APP_PACKAGE_NAME", "\"${APP_PACKAGE_NAME}\""
         }
     }
-
-//    repositories {
-//        flatDir {
-//            dirs '../support/libs/aarLibs'
-//        }
-//    }
 
     packagingOptions {
         exclude 'META-INF/INDEX.LIST'
@@ -77,6 +85,12 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "庄儿里-v${VERSION_CODE}-${APP_MARKET_NAME}.apk"
+        }
     }
 }
 

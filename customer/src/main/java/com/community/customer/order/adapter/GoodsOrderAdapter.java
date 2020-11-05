@@ -2,7 +2,6 @@ package com.community.customer.order.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,9 @@ import android.widget.TextView;
 
 import com.appframe.library.component.image.ImageLoader;
 import com.community.customer.api.user.GoodsOrderEntity;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.customer.common.ServerConfig;
 import com.community.customer.order.GoodsOrderDetailActivity;
-import com.community.support.component.RoundCornerImageView;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;

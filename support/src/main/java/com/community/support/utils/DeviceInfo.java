@@ -31,10 +31,10 @@ public class DeviceInfo {
             NetworkInfo mobileNetworkInfo = conMann.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
             NetworkInfo wifiNetworkInfo = conMann.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-            if (mobileNetworkInfo.isConnected()) {
+            if (mobileNetworkInfo != null && mobileNetworkInfo.isConnected()) {
                 ip = getLocalIpAddress();
                 Logger.getLogger().d("移动网络环境下，本地IP:" + ip);
-            } else if (wifiNetworkInfo.isConnected()) {
+            } else if (wifiNetworkInfo != null && wifiNetworkInfo.isConnected()) {
                 WifiManager wifiManager = (WifiManager) AFApplication.applicationContext.getSystemService(Context.WIFI_SERVICE);
                 if (wifiManager != null) {
                     WifiInfo wifiInfo = wifiManager.getConnectionInfo();

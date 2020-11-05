@@ -14,7 +14,7 @@ import com.community.customer.LoginActivity;
 import com.community.customer.api.CustomObserver;
 import com.community.customer.api.user.GoodsOrderEntity;
 import com.community.customer.api.user.UserDataManager;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.customer.order.adapter.GoodsOrderAdapter;
 import com.community.support.BaseFragment;
 import com.community.support.utils.UserInfoUtil;

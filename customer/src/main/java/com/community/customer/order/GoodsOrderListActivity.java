@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.support.AutoBaseTitleActivity;
 
 import java.util.ArrayList;

@@ -22,7 +22,7 @@ import com.community.customer.api.mall.MallDataManager;
 import com.community.customer.api.servers.CarouselEntity;
 import com.community.customer.api.user.CountEntity;
 import com.community.customer.api.user.UserDataManager;
-import com.community.customer.common.Constants;
+import com.community.support.common.Constants;
 import com.community.customer.mine.ShoppingCartActivity;
 import com.community.support.AutoBaseTitleActivity;
 import com.community.support.component.FontTextView;

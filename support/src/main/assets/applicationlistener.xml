@@ -2,6 +2,6 @@
 <ApplicationListener>
 
     <!--测试应用启动-->
-    <Listener-Class>com.community.customer.QXApplication</Listener-Class>
+    <Listener-Class>com.community.support.QXApplication</Listener-Class>
 
 </ApplicationListener>

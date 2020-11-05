@@ -1,8 +1,6 @@
-package com.community.customer.common;
+package com.community.support.common;
 
 import android.graphics.Color;
-
-import cn.wdcloud.acaeva.R;
 
 import java.util.ArrayList;
 
